@@ -1,11 +1,23 @@
-class Menu {
+const tabPerso = ["paladin","Guerrier","Mage","Barbare","Prêtre","Voleur"]
+const tabOject = ["heal","resurect"]
 
-    choice(){
-        const  c = String(prompt("Choisissez : perso ou object"));
+while (true){
+    console.log("1- object")
+    console.log("2- perso")
+    console.log("3- quit")
 
-        //if (c.toLowerCase == "perso" )
-        {
-
-        }
+    let choice = prompt('Veiller choisir: ');
+    
+    if (choice == "1"){
+        console.log(tabOject) 
+    }
+    else if(choice =="2"){
+        console.log(tabPerso)
+    }
+    else if(choice =="3"){
+     break
+    }
+    else{
+        console.log("Option invalide. Veiller réesayer : ")
     }
 }
