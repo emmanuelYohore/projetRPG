@@ -1,4 +1,4 @@
-class Character { 
+export default class Character { 
     name : string;
     attack : number;
     defence : number;
