@@ -4,10 +4,12 @@ class Fight{
 
     adventurers : Character[];
     monsters : Character[];
+    turnIndex : number
 
     constructor(adventurers : Character[], monsters : Character[]){
         this.adventurers = adventurers;
         this.monsters = monsters;
+        this.turnIndex = 0;
     }
 
     orderOfTurns(){
@@ -16,7 +18,7 @@ class Fight{
     }
 
     nextTurns(){
-        
+        this.turnIndex = (this.turnIndex + 1) % (this.adventurers.length + this.monsters.length);
     }
 
     isFightOver(){
