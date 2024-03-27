@@ -1,17 +1,18 @@
-import Character from "./Character.ts";
+class Fight{
 
-class Fight extends Character{
-
-    players : string[];
+    adventurers : string[];
     monsters : string[];
 
-    constructor(name : string, attack : number, defence : number, speed : number, maxPv : number, currentPv : number, players : string[], monsters : string[]){
-        super(name, attack, defence, speed, maxPv, currentPv);
-        this.players = players;
+    constructor(adventurers : string[], monsters : string[]){
+        this.adventurers = adventurers;
         this.monsters = monsters;
     }
 
     orderOfTurns(){
+        
+    }
+
+    endOfTheFigth(){
         
     }
 }
