@@ -1,54 +1,44 @@
+class Menu {
+    perso: string[];
+    persoC: string[];
 
-import Character from "./Character.ts"
-
-class Menu extends Character {
-
-    tabPerso : string[] 
-    tabOject: string[]
-    constructor() {
-        super("yyy",14,45,47,12,45); 
-        this.tabPerso = ["paladin", "Guerrier", "Mage", "Barbare", "Prêtre", "Voleur"];
-        this.tabOject = ["heal", "resurect"];
+    constructor(perso: string[], persoC: string[]) {
+        this.perso = perso;
+        this.persoC = persoC;
     }
 
-    afficherMenu() {
-        console.log("1- object");
-        console.log("2- perso");
-        console.log("3- quit");
+    printPerso() {
+        console.log("Voici les persos");
+        for (let i = 0; i < this.perso.length; i++) {
+            console.log(i + 1 + `- ${this.perso[i]}`);
+        }
     }
 
-    choixUtilisateur() {
+    choice() {
+        this.printPerso();
 
-        while (true){
-            let choice = prompt('Veiller choisir: ');
-    
-            if (choice == "1"){
-            console.log(this.tabOject);
-              }
-              else if(choice =="2"){
-            console.log(this.tabPerso);
-             }
-              else if(choice =="3"){
-                return false;
-            }
-              else{
-            console.log("Option invalide. Veiller réesayer : ");
-             }
-       }
-       
-        
-    }
+        let choix = parseInt(prompt("Choisissez un nombre entre 1 et 6 : ") || '0');
 
-    demarrer() {
-        while (true) {
-            this.afficherMenu();
-            if (!this.choixUtilisateur()) {
-                break;
+        if (isNaN(choix) || choix < 1 || choix > 6) {
+            console.log("Erreur : Veuillez saisir un nombre entre 1 et 6.");
+            this.choice();
+        } else {
+            let confirmChoice = prompt("Confirmer votre choix : 'ok', 'non'");
+            if (confirmChoice === "ok") {
+                this.persoC.push(this.perso[choix - 1]);
+                console.log(`Vous avez choisi ${this.persoC.join(', ')}`);
+            } else if (confirmChoice === "non") {
+                this.choice();
+            } else {
+                console.log("Choisissez une option valide.");
+                this.choice();
             }
         }
     }
 }
 
+const menu = new Menu(["Perso 1", "Perso 2", "Perso 3", "Perso 4", "Perso 5", "Perso 6"], []);
 
-const menu = new Menu();
-menu.demarrer();
+while (menu.persoC.length < 3) {
+    menu.choice();
+}

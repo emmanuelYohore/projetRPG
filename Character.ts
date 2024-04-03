@@ -56,5 +56,5 @@ const perso1 = new Character("test1",14,10,20,100,50)
 
 const perso2 = new Character("perso2", 14,25,25,100,0)
 
-console.log(perso1.simpleAttack(40))
+perso1.simpleAttack(40)
 //console.log(perso2.resurrect())
