@@ -31,7 +31,8 @@ class Menu {
                 this.choice();
             } else {
                 console.log("Choisissez une option valide.");
-                this.choice();
+                confirmChoice = prompt("Confirmer votre choix : 'ok', 'non'");
+                
             }
         }
     }
