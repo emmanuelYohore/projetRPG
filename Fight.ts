@@ -26,4 +26,8 @@ class Fight{
             return "The fight is over"
         }
     }
+
+    fighting(){
+        
+    }
 }
