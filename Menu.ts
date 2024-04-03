@@ -17,7 +17,7 @@ class Menu {
     choice() {
         this.printPerso();
 
-        let choix = parseInt(prompt("Choisissez un nombre entre 1 et 6 : ") || '0');
+        let choix = parseInt(prompt("Choisissez un nombre entre 1 et 6 : "));
 
         if (isNaN(choix) || choix < 1 || choix > 6) {
             console.log("Erreur : Veuillez saisir un nombre entre 1 et 6.");
