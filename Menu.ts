@@ -1,45 +1,40 @@
-class Menu {
-    perso: string[];
-    persoC: string[];
+import Character from "./classes/Character.ts";
 
-    constructor(perso: string[], persoC: string[]) {
-        this.perso = perso;
-        this.persoC = persoC;
+class Menu {
+    characters: Character[];
+
+    constructor(characters: Character[]) {
+        this.characters = characters;
     }
 
-    printPerso() {
-        console.log("Voici les persos");
-        for (let i = 0; i < this.perso.length; i++) {
-            console.log(i + 1 + `- ${this.perso[i]}`);
+    printCharacters() {
+        console.log("Voici les personnages disponibles :");
+        for (let i = 0; i < this.characters.length; i++) {
+            console.log(`${i + 1}. ${this.characters[i].nom}`);
         }
     }
 
-    choice() {
-        this.printPerso();
+    chooseCharacters(): Character[] {
+        const selectedCharacters: Character[] = [];
 
-        let choix = parseInt(prompt("Choisissez un nombre entre 1 et 6 : "));
-
-        if (isNaN(choix) || choix < 1 || choix > 6) {
-            console.log("Erreur : Veuillez saisir un nombre entre 1 et 6.");
-            this.choice();
-        } else {
-            let confirmChoice = prompt("Confirmer votre choix : 'ok', 'non'");
-            if (confirmChoice === "ok") {
-                this.persoC.push(this.perso[choix - 1]);
-                console.log(`Vous avez choisi ${this.persoC.join(', ')}`);
-            } else if (confirmChoice === "non") {
-                this.choice();
+        while (selectedCharacters.length < 3) {
+            this.printCharacters();
+            const choice = parseInt(prompt("Choisissez un personnage en saisissant son numéro : "));
+            if (isNaN(choice) || choice < 1 || choice > this.characters.length) {
+                console.log("Erreur : Veuillez saisir un nombre valide.");
             } else {
-                console.log("Choisissez une option valide.");
-                confirmChoice = prompt("Confirmer votre choix : 'ok', 'non'");
-                
+                const selectedCharacter = this.characters[choice - 1];
+                if (selectedCharacters.includes(selectedCharacter)) {
+                    console.log("Erreur : Vous avez déjà choisi ce personnage.");
+                } else {
+                    selectedCharacters.push(selectedCharacter);
+                    console.log(`${selectedCharacter.nom} a été ajouté à votre équipe.`);
+                }
             }
         }
+
+        return selectedCharacters;
     }
 }
 
-const menu = new Menu(["Perso 1", "Perso 2", "Perso 3", "Perso 4", "Perso 5", "Perso 6"], []);
-
-while (menu.persoC.length < 3) {
-    menu.choice();
-}
+export default Menu;

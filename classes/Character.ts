@@ -1,12 +1,30 @@
+import Inventory from "../Inventory.ts";
+
 class Character {
+    nom: string;
+    attaquePhysique: number;
+    defensePhysique: number;
+    vitesse: number;
+    pointsDeVieMax: number;
+    pointsDeVieCourants: number;
+    inventory: Inventory;
+
     constructor(
-        public nom: string,
-        public attaquePhysique: number,
-        public defensePhysique: number,
-        public vitesse: number,
-        public pointsDeVieMax: number,
-        public pointsDeVieCourants: number
-    ) {}
+        nom: string,
+        attaquePhysique: number,
+        defensePhysique: number,
+        vitesse: number,
+        pointsDeVieMax: number,
+        pointsDeVieCourants: number
+    ) {
+        this.nom = nom;
+        this.attaquePhysique = attaquePhysique;
+        this.defensePhysique = defensePhysique;
+        this.vitesse = vitesse;
+        this.pointsDeVieMax = pointsDeVieMax;
+        this.pointsDeVieCourants = pointsDeVieCourants;
+        this.inventory = new Inventory();
+    }
 
     attaquer(adversaire: Character): void {
         const degats = this.attaquePhysique - adversaire.defensePhysique;
