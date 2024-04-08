@@ -16,8 +16,16 @@ export default class Character {
         this.currentPv = currentPv;
     }
 
-    simpleAttack(){
+    simpleAttack(damage : number){
+        let att = damage - this.defence;
+        this.currentPv -= att;
 
+    if (this.currentPv <= 0) {
+        this.currentPv = 0; 
+        return `pv = 0`;
+    } else {
+        return `vous avez perdu ${damage} pv . Il vous en reste ${this.currentPv}`;
+    }
     }
 
     healing(health : number){
@@ -31,6 +39,11 @@ export default class Character {
     }
 
     resurrect(){
-
+        if (this.currentPv == 0){
+            this.currentPv += 50
+            return `Le joueur est revenu a la vie. pv = ${this.currentPv}`
+        }else{
+            return `Le perso est déjà en vie`
+        }
     }
 }
