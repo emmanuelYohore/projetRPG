@@ -14,27 +14,36 @@ class Menu {
         }
     }
 
-    chooseCharacters(): Character[] {
-        const selectedCharacters: Character[] = [];
+chooseCharacters(): Character[] {
+    const selectedCharacters: Character[] = [];
 
-        while (selectedCharacters.length < 3) {
-            this.printCharacters();
-            const choice = parseInt(prompt("Choisissez un personnage en saisissant son numéro : "));
-            if (isNaN(choice) || choice < 1 || choice > this.characters.length) {
-                console.log("Erreur : Veuillez saisir un nombre valide.");
+    while (selectedCharacters.length < 3) {
+        this.printCharacters();
+        const choice = parseInt(prompt("Choisissez un personnage en saisissant son numéro : "));
+        if (isNaN(choice) || choice < 1 || choice > this.characters.length) {
+            console.log("Erreur : Veuillez saisir un nombre valide.");
+        } else {
+            const selectedCharacter = this.characters[choice - 1];
+            if (selectedCharacters.includes(selectedCharacter)) {
+                console.log("Erreur : Vous avez déjà choisi ce personnage.");
             } else {
-                const selectedCharacter = this.characters[choice - 1];
-                if (selectedCharacters.includes(selectedCharacter)) {
-                    console.log("Erreur : Vous avez déjà choisi ce personnage.");
-                } else {
+                console.log(`Vous avez choisi ${selectedCharacter.nom}. Confirmez-vous ce choix ? (oui/non)`);
+                const confirmation = prompt("").toLowerCase();
+                if (confirmation === 'oui') {
                     selectedCharacters.push(selectedCharacter);
                     console.log(`${selectedCharacter.nom} a été ajouté à votre équipe.`);
+                } else if (confirmation === 'non') {
+                    console.log(`Vous avez annulé la sélection de ${selectedCharacter.nom}.`);
+                } else {
+                    console.log("Erreur : Réponse non valide. Veuillez répondre par 'oui' ou 'non'.");
                 }
             }
         }
-
-        return selectedCharacters;
     }
+
+    return selectedCharacters;
+}
+
 }
 
 export default Menu;

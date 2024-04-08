@@ -4,7 +4,7 @@ class Mage extends Character {
     mana: number;
 
     constructor(nom: string) {
-        super(nom, 15, 10, 20, 80, 80);
+        super(nom, 15, 10, 20, 100, 100);
         this.mana = 100;
     }
 
