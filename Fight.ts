@@ -16,6 +16,7 @@ class Fight {
             this.playerTurn();
             if (this.monstersAreAlive()) {
                 this.monstersTurn();
+                
             }
         }
         console.log("The fight is over.");
@@ -46,6 +47,8 @@ class Fight {
     }
 
     attack(attacker: Character): void {
+        console.log(`pv= ${attacker.pointsDeVieCourants}`)
+        
         console.log(`Select target for ${attacker.nom}:`);
         this.monsters.forEach((monster, index) => {
             console.log(`${index + 1}. ${monster.nom} (${monster.pointsDeVieCourants} HP)`);
@@ -74,6 +77,7 @@ class Fight {
     }
 
     useItem(user: Character): void {
+        
         console.log("Inventory:");
         user.inventory.showItems();
         const itemName = prompt("Choose an item to use: ");
@@ -95,6 +99,7 @@ class Fight {
                 const damage = monster.attaquePhysique - target.defensePhysique;
                 target.perdreVie(damage);
                 console.log(`${monster.nom} attacks ${target.nom} for ${damage} damage!`);
+           
             }
         });
     }
@@ -112,6 +117,9 @@ class Fight {
         console.log("- attack: Attack a monster.");
         console.log("- heal: Heal a team member.");
         console.log("- item: Use an item from inventory.");
+        
+        
+        
     }
 }
 
