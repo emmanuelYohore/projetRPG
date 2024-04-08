@@ -29,7 +29,7 @@ class Fight {
             if (member.pointsDeVieCourants > 0) {
                 console.log(`${member.nom}'s turn.`);
                 this.showActions();
-                const action = prompt("Choose an action (attack/heal/item): ");
+                const action = prompt("Choose an action (1-attack/2-heal/3-item): ");
                 switch (action) {
                     case "attack":
                         this.attack(member);
