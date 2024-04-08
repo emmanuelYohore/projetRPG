@@ -39,6 +39,7 @@ class Fight {
 
     playerTurn(player: Character): void {
         console.log(`${player.nom}'s turn:`);
+        console.log(`${player.nom} has ${player.pointsDeVieCourants}HP`)
         this.showActions();
         const action = prompt("Choose an action (attack/heal/item): ");
         switch (action) {
@@ -70,10 +71,6 @@ class Fight {
         } else {
             console.log("Invalid target. Turn skipped.");
         }
-    }
-
-    specialFeatures() {
-
     }
 
     heal(healer: Character): void {
@@ -120,7 +117,6 @@ class Fight {
     showActions(): void {
         console.log("Actions:");
         console.log("- attack: Attack a monster.");
-        console.log("- special features: Special features.")
         console.log("- heal: Heal a team member.");
         console.log("- item: Use an item from inventory.");
     }
