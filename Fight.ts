@@ -98,29 +98,12 @@ class Fight {
         }
     }
 
-<<<<<<< HEAD
     monstersTurn(monster: Character): void {
         const targetIndex = Math.floor(Math.random() * this.team.length);
         const target = this.team[targetIndex];
         const damage = monster.attaquePhysique - target.defensePhysique;
         target.perdreVie(damage);
         console.log(`${monster.nom} attacks ${target.nom} for ${damage} damage!`);
-=======
-    monstersTurn(): void {
-        console.log("Monsters' turn:");
-        this.monsters.forEach(monster => {
-            if (monster.pointsDeVieCourants > 0) {
-                const targetIndex = Math.floor(Math.random() * this.team.length);
-                const target = this.team[targetIndex];
-                const damage = monster.attaquePhysique - target.defensePhysique;
-                target.perdreVie(damage);
-                console.log(`${monster.nom} attacks ${target.nom} for ${damage} damage!`);
-            }
-            else {
-               this.monsters = this.monsters.filter(item => item !== monster)
-            }
-        });
->>>>>>> godwin
     }
 
     teamIsAlive(): boolean {
