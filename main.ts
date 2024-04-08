@@ -19,7 +19,7 @@ const pretre = new Pretre("Prêtre");
 const voleur = new Voleur("Voleur");
 
 // Création des salles avec des monstres
-const room1 = new Room([new Monstre("Goblin"), new Monstre("Goblin")], ["Potion"]);
+const room1 = new Room([new Monstre("Goblin1"), new Monstre("Goblin2")], ["Potion"]);
 const room2 = new Room([], ["Elixir"]);
 const room3 = new Room([new Monstre("Ange"), new Monstre("Demon")], ["Elixir"]);
 const room4 = new Room([], ["Ether"]);

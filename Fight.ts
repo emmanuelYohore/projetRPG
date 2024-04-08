@@ -96,6 +96,9 @@ class Fight {
                 target.perdreVie(damage);
                 console.log(`${monster.nom} attacks ${target.nom} for ${damage} damage!`);
             }
+            else {
+               this.monsters = this.monsters.filter(item => item !== monster)
+            }
         });
     }
 
