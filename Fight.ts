@@ -4,45 +4,56 @@ import Inventory from "./Inventory.ts";
 class Fight {
     team: Character[];
     monsters: Character[];
+    turnOrder: Character[];
 
-    constructor(team: Character[], monsters: Character[]) {
+    constructor(team: Character[], monsters: Character[], turnOrder: Character[]) {
         this.team = team;
         this.monsters = monsters;
+        this.turnOrder = this.calculateTurnOrder();
+    }
+
+    calculateTurnOrder(): Character[] {
+        const allCharacters = this.team.concat(this.monsters);
+        allCharacters.sort((a, b) => b.vitesse - a.vitesse); 
+        return allCharacters;
     }
 
     startFight(): void {
         console.log("A fight begins!");
+        let round = 1;
         while (this.teamIsAlive() && this.monstersAreAlive()) {
-            this.playerTurn();
-            if (this.monstersAreAlive()) {
-                this.monstersTurn();
-            }
+            console.log(`Round ${round}`);
+            this.turnOrder.forEach(character => {
+                if (character.pointsDeVieCourants > 0) {
+                    if (this.team.includes(character)) {
+                        this.playerTurn(character);
+                    } else {
+                        this.monstersTurn(character);
+                    }
+                }
+            });
+            round++;
         }
         console.log("The fight is over.");
     }
 
-    playerTurn(): void {
-        console.log("Your turn:");
-        this.team.forEach(member => {
-            if (member.pointsDeVieCourants > 0) {
-                console.log(`${member.nom}'s turn.`);
-                this.showActions();
-                const action = prompt("Choose an action (attack/heal/item): ");
-                switch (action) {
-                    case "attack":
-                        this.attack(member);
-                        break;
-                    case "heal":
-                        this.heal(member);
-                        break;
-                    case "item":
-                        this.useItem(member);
-                        break;
-                    default:
-                        console.log("Invalid action. Skipping turn.");
-                }
-            }
-        });
+    playerTurn(player: Character): void {
+        console.log(`${player.nom}'s turn:`);
+        this.showActions();
+        const action = prompt("Choose an action (attack/heal/item): ");
+        switch (action) {
+            case "attack":
+                this.attack(player);
+                break;
+            case "heal":
+                this.heal(player);
+                break;
+            case "item":
+                this.useItem(player);
+                break;
+            default:
+                console.log("Invalid action. Skipping turn.");
+        }
     }
 
     attack(attacker: Character): void {
@@ -59,6 +70,10 @@ class Fight {
         } else {
             console.log("Invalid target. Turn skipped.");
         }
+    }
+
+    specialFeatures() {
+
     }
 
     heal(healer: Character): void {
@@ -86,17 +101,12 @@ class Fight {
         }
     }
 
-    monstersTurn(): void {
-        console.log("Monsters' turn:");
-        this.monsters.forEach(monster => {
-            if (monster.pointsDeVieCourants > 0) {
-                const targetIndex = Math.floor(Math.random() * this.team.length);
-                const target = this.team[targetIndex];
-                const damage = monster.attaquePhysique - target.defensePhysique;
-                target.perdreVie(damage);
-                console.log(`${monster.nom} attacks ${target.nom} for ${damage} damage!`);
-            }
-        });
+    monstersTurn(monster: Character): void {
+        const targetIndex = Math.floor(Math.random() * this.team.length);
+        const target = this.team[targetIndex];
+        const damage = monster.attaquePhysique - target.defensePhysique;
+        target.perdreVie(damage);
+        console.log(`${monster.nom} attacks ${target.nom} for ${damage} damage!`);
     }
 
     teamIsAlive(): boolean {
@@ -110,43 +120,10 @@ class Fight {
     showActions(): void {
         console.log("Actions:");
         console.log("- attack: Attack a monster.");
+        console.log("- special features: Special features.")
         console.log("- heal: Heal a team member.");
         console.log("- item: Use an item from inventory.");
     }
 }
 
 export default Fight;
-
-import Character from "./Character.ts";
-
-class Fight{
-
-    adventurers : Character[];
-    monsters : Character[];
-    turnIndex : number
-
-    constructor(adventurers : Character[], monsters : Character[]){
-        this.adventurers = adventurers;
-        this.monsters = monsters;
-        this.turnIndex = 0;
-    }
-
-    orderOfTurns(){
-        const allCharacters = this.adventurers.concat(this.monsters);
-        allCharacters.sort((a, b) => b.speed - a.speed)
-    }
-
-    nextTurns(){
-        this.turnIndex = (this.turnIndex + 1) % (this.adventurers.length + this.monsters.length);
-    }
-
-    isFightOver(){
-        if(this.adventurers.every(Character => Character.currentPv <= 0) || this.monsters.every(Character => Character.currentPv <= 0)){
-            return "The fight is over"
-        }
-    }
-
-    fighting(){
-        
-    }
-}
