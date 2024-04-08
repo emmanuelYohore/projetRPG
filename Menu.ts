@@ -28,11 +28,11 @@ chooseCharacters(): Character[] {
                 console.log("Erreur : Vous avez déjà choisi ce personnage.");
             } else {
                 console.log(`Vous avez choisi ${selectedCharacter.nom}. Confirmez-vous ce choix ? (oui/non)`);
-                const confirmation = prompt("").toLowerCase();
-                if (confirmation === 'oui') {
+                const confirmation = prompt("1- oui, 2- non").toLowerCase();
+                if (confirmation === '1') {
                     selectedCharacters.push(selectedCharacter);
                     console.log(`${selectedCharacter.nom} a été ajouté à votre équipe.`);
-                } else if (confirmation === 'non') {
+                } else if (confirmation === '2') {
                     console.log(`Vous avez annulé la sélection de ${selectedCharacter.nom}.`);
                 } else {
                     console.log("Erreur : Réponse non valide. Veuillez répondre par 'oui' ou 'non'.");
