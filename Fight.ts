@@ -22,7 +22,8 @@ class Fight {
         console.log("The fight is over.");
     }
 
-    playerTurn(): void {
+    playerTurn(player: Character): void {
+        console.log(`pv= ${player.pointsDeVieCourants}`)
         console.log("Your turn:");
         this.team.forEach(member => {
             if (member.pointsDeVieCourants > 0) {
@@ -47,7 +48,7 @@ class Fight {
     }
 
     attack(attacker: Character): void {
-        console.log(`pv= ${attacker.pointsDeVieCourants}`)
+       
         
         console.log(`Select target for ${attacker.nom}:`);
         this.monsters.forEach((monster, index) => {
