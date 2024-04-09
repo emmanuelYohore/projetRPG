@@ -95,9 +95,12 @@ class Fight {
                 case "Potion":
                     this.usePotion(user);
                     break;
-                case "Elixir":
-                    this.useElixir(user);
+                case "StarPiece":
+                    this.useStarPiece(user);
                     break;
+                case "MidStar":
+                    this.useMidStar(user);
+                break;
                 case "Ether":
                     this.useEther(user);
                     break;
@@ -116,9 +119,28 @@ class Fight {
         console.log(`//////////${user.nom} uses Potion and heals for ${healAmount} HP.`);
     }
 
-    useElixir(user: Character): void {
-        const restoreAmount = 50; // Example: Restore mana
-        // Implement logic to restore mana or any other effect
+    useStarPiece(user: Character): void {
+        const restoreAmount = Math.floor(user.pointsDeVieMax * 0.2);
+        const healAmount2 = Math.floor(user.pointsDeVieMax * 0.5);
+        if(user.pointsDeVieCourants <= 0 ){
+            console.log(`//////////${user.nom} uses StarPiece to resurect and gain ${restoreAmount} % of his HP`);
+            user.restaurerVie(restoreAmount)
+        } else {
+            user.restaurerVie(healAmount2)
+            console.log(`//////////${user.nom} uses StarPiece and gain ${healAmount2} % of his HP`)
+        }
+    }
+
+    useMidStar(user: Character): void {
+        const restoreAmount2 = user.pointsDeVieMax;
+        const healAmount3 = user.pointsDeVieMax - user.pointsDeVieCourants;
+        if(user.pointsDeVieCourants <= 0 ){
+            console.log(`//////////${user.nom} uses MidStar to resurect with his full HP !`);
+            user.restaurerVie(restoreAmount2)
+        } else {
+            user.restaurerVie(healAmount3)
+            console.log(`//////////${user.nom} uses StarPiece and recover his full HP !`)
+        }
         console.log(`${user.nom} uses Elixir.`);
     }
 
