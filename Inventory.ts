@@ -1,8 +1,8 @@
 class Inventory {
-    items: string[];
+    items: string[] =["Potion", "Elixir", "Ether", "Star"];
 
     constructor() {
-        this.items = [];
+        this.items = ["Potion", "Elixir", "Ether", "Star"];
     }
 
     addItem(item: string): void {
@@ -16,8 +16,7 @@ class Inventory {
         }
     }
 
-    showItems(): void {
-        console.log("Inventory:");
+    showItems(): void {;
         this.items.forEach(item => console.log("- " + item));
     }
 }

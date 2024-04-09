@@ -20,7 +20,7 @@ class Fight {
 
     startFight(): void {
         console.log("A fight begins!");
-        let round = 1
+        let round = 1;
         while (this.teamIsAlive() && this.monstersAreAlive()) {
             console.log(`Round ${round}`);
             this.turnOrder.forEach(character => {
@@ -91,12 +91,41 @@ class Fight {
         user.inventory.showItems();
         const itemName = prompt("Choose an item to use: ");
         if (user.inventory.items.includes(itemName)) {
-            // Implement item effects here
-            console.log(`${user.nom} uses ${itemName}.`);
+            switch (itemName) {
+                case "Potion":
+                    this.usePotion(user);
+                    break;
+                case "Elixir":
+                    this.useElixir(user);
+                    break;
+                case "Ether":
+                    this.useEther(user);
+                    break;
+                default:
+                    console.log("Item effect not implemented.");
+            }
             user.inventory.removeItem(itemName);
         } else {
             console.log("Item not found in inventory. Turn skipped.");
         }
+    }
+
+    usePotion(user: Character): void {
+        const healAmount = Math.floor(user.pointsDeVieMax * 0.5);
+        user.restaurerVie(healAmount);
+        console.log(`//////////${user.nom} uses Potion and heals for ${healAmount} HP.`);
+    }
+
+    useElixir(user: Character): void {
+        const restoreAmount = 50; // Example: Restore mana
+        // Implement logic to restore mana or any other effect
+        console.log(`${user.nom} uses Elixir.`);
+    }
+
+    useEther(user: Character): void {
+        const restoreAmount = 50; // Example: Restore mana
+        // Implement logic to restore mana or any other effect
+        console.log(`${user.nom} uses Ether.`);
     }
 
     monstersTurn(monster: Character): void {
