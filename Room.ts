@@ -1,6 +1,7 @@
 import Character from "./classes/Character.ts";
 import Fight from "./Fight.ts";
 import Inventory from "./Inventory.ts";
+import {pause} from "./GameManager.ts"
 
 class Room {
     monsters: Character[];
@@ -23,9 +24,15 @@ class Room {
                 this.inventory.addItem(item);
             });
         } else {
-            console.log("You entered a room with monsters!");
+            console.log("DANGER !!! TWO MONSTERS APPEARS ! \n");
+            pause(3000)
             this.fight = new Fight(team, this.monsters);
             this.fight.startFight();
+            // After the fight, check if the team is still alive and move to the next room if possible
+            if (this.fight.teamIsAlive()) {
+                console.log("Room cleared!");
+                return; // Exit function if the team is alive
+            }
         }
     }
 }

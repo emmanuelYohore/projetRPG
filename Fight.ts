@@ -1,5 +1,5 @@
 import Character from "./classes/Character.ts";
-import Inventory from "./Inventory.ts";
+import {pause} from "./GameManager.ts"
 
 class Fight {
     team: Character[];
@@ -19,63 +19,116 @@ class Fight {
     }
 
     startFight(): void {
-        console.log("A fight begins!");
+        console.log("A FIGHT BEGINS !");
+        console.clear()
         let round = 1;
         while (this.teamIsAlive() && this.monstersAreAlive()) {
-            console.log(`Round ${round}`);
+            console.clear();
+            console.log(`******ROUND ${round}****** \n`);;
+            pause(3000);
             this.turnOrder.forEach(character => {
-                if (character.pointsDeVieCourants > 0) {
-                    if (this.team.includes(character)) {
+                if (this.team.length !==0 && this.monsters.length !== 0){
+                    if (character.pointsDeVieCourants > 0 ) {
+                        if (this.team.includes(character)) {
+                            this.playerTurn(character);
+                        } else {
+                            this.monstersTurn(character);
+                        }
+                    } else if(this.team.includes(character)){
                         this.playerTurn(character);
-                    } else {
-                        this.monstersTurn(character);
                     }
-                }
+                }  
             });
             round++;
+            console.clear()
+            console.log(`--------------//-RECAP ROUND ${round - 1}-\\\\-------------`)
+            this.turnOrder.forEach(character => {
+                console.log(`${character.nom}  :  HP ${character.pointsDeVieCourants}`)
+            })
+            console.log(`\n \n`)
+            const next = parseInt(prompt("CONTINUE ?          (anything)- YEA !     1-SURRENDER : ") || '0')
+            switch (next) {
+                case 1:
+                    console.log(`CLOSING GAME----------------`);
+                    pause(3000);
+                    Deno.exit();
+                    break; 
+                default:
+                    console.log("\n :)   NEXT STEP !");
+                    pause(3000);
+            }
         }
         console.log("The fight is over.");
     }
 
     playerTurn(player: Character): void {
-        console.log(`${player.nom}'s(${player.pointsDeVieCourants}HP) turn:`);
-        this.showActions();
-        const action = prompt("Choose an action (attack/heal/item): ");
-        switch (action) {
-            case "attack":
-                this.attack(player);
-                break;
-            case "heal":
-                this.heal(player);
-                break;
-            case "item":
-                this.useItem(player);
-                break;
-            default:
-                console.log("Invalid action. Skipping turn.");
-        }
+        if(player.pointsDeVieCourants > 0 ){
+            console.clear()
+            console.log('\x1b[32m%s\x1b[0m',`TURN OF ----> ${player.nom.toUpperCase()}(${player.pointsDeVieCourants}HP)\n`);
+            this.showActions();
+            const action = parseInt(prompt("\nYOUR CHOICE : ") || '0');
+            switch (action) {
+                case 1:
+                    console.clear()
+                    this.attack(player);
+                    break;
+                case 2:
+                    console.clear()
+                    this.heal(player);
+                    break;
+                case 3:
+                    console.clear()
+                    this.useItem(player);
+                    break;
+                default:
+                    console.log("Invalid action. Skipping turn.");
+            }
+        } else if(player.pointsDeVieCourants <= 0 && player.inventory.items.length !== 0){
+            this.showActions2();
+            const action = parseInt(prompt("\nYOUR CHOICE : ") || '0');;
+            switch (action) {
+                case 1:
+                    this.heal(player);
+                    break;
+                case 2:
+                    this.useItem(player);
+                    break;
+                default:
+                    console.log("Invalid action. Skipping turn.");
+            }
+        } else {
+            console.log(`${player.nom} can't do anything ! he is dead !`)
+            this.team = this.team.filter(item => item !== player)
+        }   
     }
 
     attack(attacker: Character): void {
-        console.log(`Select target for ${attacker.nom}:`);
+        console.log(`SELECT TARGET FOR ${attacker.nom.toUpperCase()}: \n`);
         this.monsters.forEach((monster, index) => {
-            if (monster.pointsDeVieCourants > 0){
-                console.log(`${index + 1}. ${monster.nom} (${monster.pointsDeVieCourants} HP)`);
-            }       
+            console.log(`${index + 1}. ${monster.nom} (${monster.pointsDeVieCourants} HP)`);   
         });
-        const targetIndex = parseInt(prompt("Choose target: ")) - 1;
+        const targetIndex = parseInt((prompt("\nTARGET: ")) || '0') - 1;
+        console.clear()
         if (!isNaN(targetIndex) && targetIndex >= 0 && targetIndex < this.monsters.length) {
             const target = this.monsters[targetIndex];
             const damage = attacker.attaquePhysique - target.defensePhysique;
             target.perdreVie(damage);
-            console.log(`${attacker.nom} attacks ${target.nom} for ${damage} damage!`);
+            console.log('\x1b[32m%s\x1b[0m',`${attacker.nom.toUpperCase()} ATTACKS ${target.nom.toUpperCase()} FOR ${damage} DAMAGE!`)
+            pause(2000);
+            if(target.pointsDeVieCourants <= 0) {
+                console.log(`${target.nom} IS DEAD.`)
+                pause(4000);
+                this.monsters = this.monsters.filter(item => item !== target)
+            }
         } else {
-            console.log("Invalid target. Turn skipped.");
+            console.log("\nINVALID TARGET !    TURN SKIPPED !");
+            pause(2000);
         }
+        console.clear()
     }
 
     heal(healer: Character): void {
-        const targetIndex = parseInt(prompt("Choose target for healing: ")) - 1;
+        const targetIndex = parseInt(prompt("Choose target for healing: ") || '0') - 1;
         if (!isNaN(targetIndex) && targetIndex >= 0 && targetIndex < this.team.length) {
             const target = this.team[targetIndex];
             const healAmount = Math.floor(target.pointsDeVieMax * 0.25);
@@ -89,7 +142,7 @@ class Fight {
     useItem(user: Character): void {
         console.log("Inventory:");
         user.inventory.showItems();
-        const itemName = prompt("Choose an item to use: ");
+        const itemName : string = prompt("Choose an item to use: ");
         if (user.inventory.items.includes(itemName)) {
             switch (itemName) {
                 case "Potion":
@@ -141,7 +194,6 @@ class Fight {
             user.restaurerVie(healAmount3)
             console.log(`//////////${user.nom} uses StarPiece and recover his full HP !`)
         }
-        console.log(`${user.nom} uses Elixir.`);
     }
 
     useEther(user: Character): void {
@@ -151,29 +203,41 @@ class Fight {
     }
 
     monstersTurn(monster: Character): void {
-        console.log("Monsters' turn:");
-        if (monster.pointsDeVieCourants > 0) {
-            const targetIndex = Math.floor(Math.random() * this.team.length);
-            const target = this.team[targetIndex];
-            const damage = monster.attaquePhysique - target.defensePhysique;
-            target.perdreVie(damage);
-            console.log(`${monster.nom} attacks ${target.nom} for ${damage} damage!`);
-        }
+        console.log('\x1b[31m%s\x1b[0m',`TURN OF ----> ${monster.nom.toUpperCase()}(${monster.pointsDeVieCourants}HP)\n`);
+        const targetIndex = Math.floor(Math.random() * this.team.length);
+        const target = this.team[targetIndex];
+        const damage = monster.attaquePhysique - target.defensePhysique;
+        target.perdreVie(damage);
+        console.log('\x1b[31m%s\x1b[0m',`${monster.nom.toUpperCase()} ATTACKS ${target.nom.toUpperCase()} FOR ${damage} DAMAGE!\n`);
+        pause(3000);
     }
 
     teamIsAlive(): boolean {
-        return this.team.some(member => member.pointsDeVieCourants > 0);
+        if(this.team.length !== 0){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     monstersAreAlive(): boolean {
-        return this.monsters.some(monster => monster.pointsDeVieCourants > 0);
+        if(this.monsters.length !== 0){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     showActions(): void {
-        console.log("Actions:");
-        console.log("- attack: Attack a monster.");
-        console.log("- heal: Heal a team member.");
-        console.log("- item: Use an item from inventory.");
+        console.log("---ACTIONS---\n");
+        console.log("- 1 : Attack a monster.");
+        console.log("- 2 : Heal a team member.");
+        console.log("- 3 : Use an item from inventory.");
+    }
+    showActions2(): void {
+        console.log("---ACTIONS---\n");
+        console.log("- 1 : Heal a team member.");
+        console.log("- 2 : Use an item from inventory.");
     }
 }
 
