@@ -17,7 +17,6 @@ const barbare = new Barbare("Barbare");
 const pretre = new Pretre("Prêtre");
 const voleur = new Voleur("Voleur");
 
-
 const room1 = new Room([new Monstre("Goblin1"), new Monstre("Goblin2")], []);
 const room2 = new Room([], ["Elixir"]);
 const room3 = new Room([new Monstre("Ange"), new Monstre("Demon")], ["Elixir"]);
