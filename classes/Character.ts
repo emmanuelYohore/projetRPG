@@ -38,9 +38,9 @@ class Character {
         }
     }
 
-    restaurerVie(pourcentage: number): void {
-        const pvRestaurés = Math.floor(this.pointsDeVieMax * (pourcentage / 100));
-        this.pointsDeVieCourants += pvRestaurés;
+    restaurerVie(restitution: number): void {
+
+        this.pointsDeVieCourants += restitution;
         if (this.pointsDeVieCourants > this.pointsDeVieMax) {
             this.pointsDeVieCourants = this.pointsDeVieMax;
         }

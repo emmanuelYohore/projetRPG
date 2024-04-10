@@ -1,6 +1,7 @@
 import Character from "./classes/Character.ts";
 import Barbare from "./classes/Barbare.ts"
 import Inventory from "./Inventory.ts";
+import Barbare from "./classes/Barbare.ts"
 
 class Fight {
     team: Character[];
@@ -21,7 +22,7 @@ class Fight {
 
     startFight(): void {
         console.log("A fight begins!");
-        let round = 1
+        let round = 1;
         while (this.teamIsAlive() && this.monstersAreAlive()) {
             console.log(`Round ${round}`);
             this.turnOrder.forEach(character => {
@@ -39,9 +40,17 @@ class Fight {
     }
 
     playerTurn(player: Character): void {
-        console.log(`${player.nom}'s(${player.pointsDeVieCourants}HP) turn:`);
+        console.log(`${player.nom}'s (${player.pointsDeVieCourants} HP) turn:`);
         this.showActions();
-        const action = prompt("Choose an action (attack/heal/item/specialFeatures): ");
+    
+        let actionPrompt;
+        if (player instanceof Barbare) {
+            actionPrompt = "Choose an action (attack/heal/item/berserk): ";
+        } else {
+            actionPrompt = "Choose an action (attack/heal/item): ";
+        }
+    
+        const action = prompt(actionPrompt);
         switch (action) {
             case "attack":
                 this.attack(player);
@@ -52,17 +61,20 @@ class Fight {
             case "item":
                 this.useItem(player);
                 break;
-            case "specialFeatures":
+            case "berserk": 
                 if (player instanceof Barbare) {
-                    player.attaqueBerserk(this.monsters[0]);
+                    player.attaqueBerserk(this.monsters); 
                 } else {
-                    console.log("No special feature available for this character.");
+                    console.log("Invalid action for this character. Skipping turn.");
                 }
                 break;
             default:
                 console.log("Invalid action. Skipping turn.");
         }
     }
+    
+    
+    
 
     attack(attacker: Character): void {
         console.log(`Select target for ${attacker.nom}:`);
@@ -99,12 +111,41 @@ class Fight {
         user.inventory.showItems();
         const itemName = prompt("Choose an item to use: ");
         if (user.inventory.items.includes(itemName)) {
-            // Implement item effects here
-            console.log(`${user.nom} uses ${itemName}.`);
+            switch (itemName) {
+                case "Potion":
+                    this.usePotion(user);
+                    break;
+                case "Elixir":
+                    this.useElixir(user);
+                    break;
+                case "Ether":
+                    this.useEther(user);
+                    break;
+                default:
+                    console.log("Item effect not implemented.");
+            }
             user.inventory.removeItem(itemName);
         } else {
             console.log("Item not found in inventory. Turn skipped.");
         }
+    }
+
+    usePotion(user: Character): void {
+        const healAmount = Math.floor(user.pointsDeVieMax * 0.5);
+        user.restaurerVie(healAmount);
+        console.log(`//////////${user.nom} uses Potion and heals for ${healAmount} HP.`);
+    }
+
+    useElixir(user: Character): void {
+        const restoreAmount = 50; // Example: Restore mana
+        // Implement logic to restore mana or any other effect
+        console.log(`${user.nom} uses Elixir.`);
+    }
+
+    useEther(user: Character): void {
+        const restoreAmount = 50; // Example: Restore mana
+        // Implement logic to restore mana or any other effect
+        console.log(`${user.nom} uses Ether.`);
     }
 
     monstersTurn(monster: Character): void {
@@ -135,4 +176,8 @@ class Fight {
     }
 }
 
+
 export default Fight;
+
+
+

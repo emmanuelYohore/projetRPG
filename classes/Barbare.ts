@@ -1,25 +1,21 @@
 import Character from "./Character.ts";
 
-class Barbare extends Character {
+export default class Barbare extends Character {
     constructor(nom: string) {
         super(nom, 25, 10, 8, 110, 110);
     }
 
-    attaqueBerserk(adversaire: Character): void {
-        console.log(`Select target for Barbare:`);
-        const targetIndex = parseInt(prompt("Choose target: ")) - 1;
-        if (targetIndex >= 0) {
-            const target = adversaire[targetIndex];
-            const degats = Math.floor((this.attaquePhysique - adversaire.defensePhysique) * 1.3);
-            adversaire.perdreVie(degats);
-            console.log(`Barbare attacks ${target} for ${degats} damage!`);
-            const blessure = Math.floor(this.pointsDeVieMax * 0.2);
-            this.perdreVie(blessure);
-            console.log(`Barbare perds ${blessure}HP`)
-        } else {
-            console.log("Invalid target. Turn skipped.");
-        }
+    attaqueBerserk(adversaires: Character[]): void {
+        
+        const ennemi = adversaires[Math.floor(Math.random() * adversaires.length)];
+        const degats = Math.floor((this.attaquePhysique - ennemi.defensePhysique) * 1.3);
+    
+        
+        ennemi.perdreVie(degats);
+        const blessure = Math.floor(this.pointsDeVieMax * 0.2);
+        this.perdreVie(blessure);
+        
+        console.log(`${this.nom} attacks ${ennemi.nom} for ${degats} damage!`);
+        console.log(`${this.nom} takes ${blessure} damage due to Berserk!`);
     }
 }
-
-export default Barbare;
