@@ -1,6 +1,6 @@
 import Character from "./classes/Character.ts";
-import {pause} from "./GameManager.ts"
-import Barbare from "./classes/Barbare.ts"
+import {pause} from "./GameManager.ts";
+import Barbare from "./classes/Barbare.ts";
 import Mage from "./classes/Mage.ts";
 import Paladin from "./classes/Paladin.ts";
 import Pretre from "./classes/Pretre.ts";
@@ -93,6 +93,9 @@ class Fight {
                         } else if (player instanceof Paladin) {
                             player.attaqueSpecial(this.monsters); 
                             player.mana -= 30;
+                        }else if(player instanceof Pretre) {
+                            player.attaqueSpecial(this.team)
+                            player.mana -= 30
                         } else {
                             console.log(`NO SPECIAL ABILITY FOR ${player.nom.toUpperCase()}. TURN SKIPPED !`);
                             pause(5000);
