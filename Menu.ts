@@ -7,6 +7,18 @@ class Menu {
         this.characters = characters;
     }
 
+    showActions(): void {
+        console.log("---ACTIONS---\n");
+        console.log("- 1 : Attack a monster.");
+        console.log("- 2 : Use special abitlity");
+        console.log("- 3 : Use an item from inventory.");
+    }
+
+    showActions2(): void {
+        console.log("---ACTIONS---\n");
+        console.log("- 1 : Use an item from inventory.");
+    }
+
     printCharacters() {
         console.log(`------------------------------------------------------------------------------\\\\\\-RPG GAME 2024-///------------------------------------------------------------------------------\n`)
         console.log("CHARACTERS \n");

@@ -8,6 +8,7 @@ class Character {
     pointsDeVieMax: number;
     pointsDeVieCourants: number;
     inventory: Inventory;
+    mana: number
 
     constructor(
         nom: string,
@@ -15,7 +16,8 @@ class Character {
         defensePhysique: number,
         vitesse: number,
         pointsDeVieMax: number,
-        pointsDeVieCourants: number
+        pointsDeVieCourants: number,
+        mana: number
     ) {
         this.nom = nom;
         this.attaquePhysique = attaquePhysique;
@@ -24,6 +26,7 @@ class Character {
         this.pointsDeVieMax = pointsDeVieMax;
         this.pointsDeVieCourants = pointsDeVieCourants;
         this.inventory = new Inventory();
+        this.mana = mana
     }
 
     attaquer(adversaire: Character): void {
