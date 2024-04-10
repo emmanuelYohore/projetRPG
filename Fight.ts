@@ -1,17 +1,6 @@
 import Character from "./classes/Character.ts";
 import Inventory from "./Inventory.ts";
-
-import GameManager from "./GameManager.ts";
-import Menu from "./Menu.ts";
-import Guerrier from "./classes/Guerrier.ts";
-import Mage from "./classes/Mage.ts";
-import Paladin from "./classes/Paladin.ts";
-import Barbare from "./classes/Barbare.ts";
-import Pretre from "./classes/Pretre.ts";
-import Voleur from "./classes/Voleur.ts";
-import Room from "./Room.ts";
-import Monstre from "./classes/Monstre.ts"
-import Boss from "./classes/Boss.ts"
+import Barbare from "./classes/Barbare.ts"
 
 class Fight {
     team: Character[];
@@ -49,18 +38,10 @@ class Fight {
         console.log("The fight is over.");
     }
 
-    attaqueBerserk(adversaire: Barbare): void {
-        const degats = Math.floor((adversaire.attaquePhysique - this.defensePhysique) * 1.3);
-        adversaire.perdreVie(degats);
-        const blessure = Math.floor(this.pointsDeVieMax * 0.2);
-        this.perdreVie(blessure);
-    }
-    
-
     playerTurn(player: Character): void {
-        console.log(`${player.nom}'s(${player.pointsDeVieCourants}HP) turn:`);
+        console.log(`${player.nom}'s (${player.pointsDeVieCourants} HP) turn:`);
         this.showActions();
-        const action = prompt("Choose an action (attack/heal/item/belzerk): ");
+        const action = prompt("Choose an action (attack/heal/item/berserk): ");
         switch (action) {
             case "attack":
                 this.attack(player);
@@ -71,13 +52,19 @@ class Fight {
             case "item":
                 this.useItem(player);
                 break;
-            case "belzerk":
-                this.attaqueBerserk(player); // Ajout de "this." pour appeler la méthode
-                break; // Ajout de break pour éviter l'exécution des cas suivants
+            case "berserk": // Utiliser "berserk" plutôt que "berzerk"
+                if (player instanceof Barbare) {
+                    player.attaqueBerserk(this.monsters); // Passer les monstres comme argument
+                } else {
+                    console.log("Invalid action for this character. Skipping turn.");
+                }
+                break;
             default:
                 console.log("Invalid action. Skipping turn.");
         }
     }
+    
+    
 
     attack(attacker: Character): void {
         console.log(`Select target for ${attacker.nom}:`);
@@ -136,7 +123,7 @@ class Fight {
     usePotion(user: Character): void {
         const healAmount = Math.floor(user.pointsDeVieMax * 0.5);
         user.restaurerVie(healAmount);
-        console.log(`${user.nom} uses Potion and heals for ${healAmount} HP.`);
+        console.log(`//////////${user.nom} uses Potion and heals for ${healAmount} HP.`);
     }
 
     useElixir(user: Character): void {
@@ -178,4 +165,8 @@ class Fight {
     }
 }
 
+
 export default Fight;
+
+
+
