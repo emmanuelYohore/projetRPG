@@ -1,11 +1,13 @@
 import Character from "./Character.ts";
 
-export default class Barbare extends Character {
+import SpecialAttack from "./SpecialAttack.ts";
+
+export default class Barbare extends Character implements SpecialAttack{
     constructor(nom: string) {
-        super(nom, 25, 10, 8, 110, 110);
+        super(nom, 25, 10, 8, 110, 110,90);
     }
 
-    attaqueBerserk(adversaires: Character[]): void {
+    attaqueSpecial(adversaires: Character[]): void {
         
         const ennemi = adversaires[Math.floor(Math.random() * adversaires.length)];
         const degats = Math.floor((this.attaquePhysique - ennemi.defensePhysique) * 1.3);

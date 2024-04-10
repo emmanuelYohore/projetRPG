@@ -2,7 +2,7 @@ import Character from "./Character.ts";
 
 class Monstre extends Character {
     constructor(nom: string) {
-        super(nom, 20, 10, 15, 80, 80);
+        super(nom, 20, 10, 15, 80, 80,90);
     }
 
     attaquerAleatoire(ennemis: Character[]): void {

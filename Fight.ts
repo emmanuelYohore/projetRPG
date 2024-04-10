@@ -2,6 +2,11 @@ import Character from "./classes/Character.ts";
 import Inventory from "./Inventory.ts";
 import Barbare from "./classes/Barbare.ts"
 
+import Mage from "./classes/Mage.ts";
+import Paladin from "./classes/Paladin.ts";
+import Pretre from "./classes/Pretre.ts";
+import Voleur from "./classes/Voleur.ts";
+
 class Fight {
     team: Character[];
     monsters: Character[];
@@ -42,14 +47,7 @@ class Fight {
         console.log(`${player.nom}'s (${player.pointsDeVieCourants} HP) turn:`);
         this.showActions();
     
-        let actionPrompt;
-        if (player instanceof Barbare) {
-            actionPrompt = "Choose an action (attack/heal/item/berserk): ";
-        } else {
-            actionPrompt = "Choose an action (attack/heal/item): ";
-        }
-    
-        const action = prompt(actionPrompt);
+        const action = prompt("Choose an action (attack/heal/item/special): ");
         switch (action) {
             case "attack":
                 this.attack(player);
@@ -60,9 +58,13 @@ class Fight {
             case "item":
                 this.useItem(player);
                 break;
-            case "berserk": 
+            case "special": 
                 if (player instanceof Barbare) {
-                    player.attaqueBerserk(this.monsters); 
+                    player.attaqueSpecial(this.monsters); 
+                } else if (player instanceof Mage){
+                    player.attaqueSpecial(this.monsters);
+                } else if (player instanceof Paladin) {
+                    player.attaqueSpecial(this.monsters); 
                 } else {
                     console.log("Invalid action for this character. Skipping turn.");
                 }
@@ -71,6 +73,7 @@ class Fight {
                 console.log("Invalid action. Skipping turn.");
         }
     }
+    
     
     
     
