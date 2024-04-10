@@ -41,7 +41,15 @@ class Fight {
     playerTurn(player: Character): void {
         console.log(`${player.nom}'s (${player.pointsDeVieCourants} HP) turn:`);
         this.showActions();
-        const action = prompt("Choose an action (attack/heal/item/berserk): ");
+    
+        let actionPrompt;
+        if (player instanceof Barbare) {
+            actionPrompt = "Choose an action (attack/heal/item/berserk): ";
+        } else {
+            actionPrompt = "Choose an action (attack/heal/item): ";
+        }
+    
+        const action = prompt(actionPrompt);
         switch (action) {
             case "attack":
                 this.attack(player);
@@ -52,9 +60,9 @@ class Fight {
             case "item":
                 this.useItem(player);
                 break;
-            case "berserk": // Utiliser "berserk" plutôt que "berzerk"
+            case "berserk": 
                 if (player instanceof Barbare) {
-                    player.attaqueBerserk(this.monsters); // Passer les monstres comme argument
+                    player.attaqueBerserk(this.monsters); 
                 } else {
                     console.log("Invalid action for this character. Skipping turn.");
                 }
@@ -63,6 +71,7 @@ class Fight {
                 console.log("Invalid action. Skipping turn.");
         }
     }
+    
     
     
 
