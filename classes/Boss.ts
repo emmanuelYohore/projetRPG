@@ -2,7 +2,7 @@ import Character from "./Character.ts";
 
 class Boss extends Character {
     constructor(nom: string) {
-        super(nom, 30, 20, 25, 150, 150);
+        super(nom, 30, 20, 25, 150, 150,200);
     }
 
     attaqueDeGroupe(ennemis: Character[]): void {

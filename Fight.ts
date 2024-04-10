@@ -2,16 +2,24 @@ import Character from "./classes/Character.ts";
 import Barbare from "./classes/Barbare.ts"
 import Inventory from "./Inventory.ts";
 import {pause} from "./GameManager.ts"
+import Barbare from "./classes/Barbare.ts"
+import Mage from "./classes/Mage.ts";
+import Paladin from "./classes/Paladin.ts";
+import Pretre from "./classes/Pretre.ts";
+import Voleur from "./classes/Voleur.ts";
+import Menu from "./Menu.ts";
 
 class Fight {
     team: Character[];
     monsters: Character[];
     turnOrder: Character[];
+    menu: Menu;
 
     constructor(team: Character[], monsters: Character[]) {
         this.team = team;
         this.monsters = monsters;
         this.turnOrder = this.calculateTurnOrder();
+        this.menu = new Menu([])
     }
 
     calculateTurnOrder(): Character[] {
@@ -56,7 +64,7 @@ class Fight {
                     Deno.exit();
                     break; 
                 default:
-                    console.log("\n :)   NEXT STEP !");
+                    console.log("\nNEXT STEP !");
                     pause(3000);
             }
         }
@@ -66,8 +74,8 @@ class Fight {
     playerTurn(player: Character): void {
         if(player.pointsDeVieCourants > 0 ){
             console.clear()
-            console.log('\x1b[32m%s\x1b[0m',`TURN OF ----> ${player.nom.toUpperCase()}(${player.pointsDeVieCourants}HP)\n`);
-            this.showActions();
+            console.log('\x1b[32m%s\x1b[0m',`TURN OF ----> ${player.nom.toUpperCase()}(${player.pointsDeVieCourants}HP)----MANA${player.mana}\n`);
+            this.menu.showActions()
             const action = parseInt(prompt("\nYOUR CHOICE : ") || '0');
             switch (action) {
                 case 1:
@@ -75,8 +83,23 @@ class Fight {
                     this.attack(player);
                     break;
                 case 2:
-                    console.clear()
-                    this.heal(player);
+                    if(player.mana < 30){
+                        console.log(`PLAYER ${player.nom.toUpperCase()} HAS NOT ENOUGH MANA TO DO HIS SPECIAL...TURN SKIPPED !`);
+                    } else {
+                        if (player instanceof Barbare) {
+                            player.attaqueSpecial(this.monsters); 
+                            player.mana -= 30;
+                        } else if (player instanceof Mage){
+                            player.attaqueSpecial(this.monsters);
+                            player.mana -= 30;
+                        } else if (player instanceof Paladin) {
+                            player.attaqueSpecial(this.monsters); 
+                            player.mana -= 30;
+                        } else {
+                            console.log(`NO SPECIAL ABILITY FOR ${player.nom.toUpperCase()}. TURN SKIPPED !`);
+                            pause(5000);
+                        }
+                    }
                     break;
                 case 3:
                     console.clear()
@@ -86,13 +109,10 @@ class Fight {
                     console.log("Invalid action. Skipping turn.");
             }
         } else if(player.pointsDeVieCourants <= 0 && player.inventory.items.length !== 0){
-            this.showActions2();
+            this.menu.showActions2();
             const action = parseInt(prompt("\nYOUR CHOICE : ") || '0');;
             switch (action) {
                 case 1:
-                    this.heal(player);
-                    break;
-                case 2:
                     this.useItem(player);
                     break;
                 default:
@@ -129,18 +149,6 @@ class Fight {
         console.clear()
     }
 
-    heal(healer: Character): void {
-        const targetIndex = parseInt(prompt("Choose target for healing: ") || '0') - 1;
-        if (!isNaN(targetIndex) && targetIndex >= 0 && targetIndex < this.team.length) {
-            const target = this.team[targetIndex];
-            const healAmount = Math.floor(target.pointsDeVieMax * 0.25);
-            target.restaurerVie(healAmount);
-            console.log(`${healer.nom} heals ${target.nom} for ${healAmount} HP.`);
-        } else {
-            console.log("Invalid target. Turn skipped.");
-        }
-    }
-
     useItem(user: Character): void {
         console.log("Inventory:");
         user.inventory.showItems();
@@ -169,9 +177,18 @@ class Fight {
     }
 
     usePotion(user: Character): void {
-        const healAmount = Math.floor(user.pointsDeVieMax * 0.5);
-        user.restaurerVie(healAmount);
-        console.log(`//////////${user.nom} uses Potion and heals for ${healAmount} HP.`);
+        if (user.pointsDeVieCourants > 0){
+            const healAmount = Math.floor(user.pointsDeVieMax * 0.5);
+            user.restaurerVie(healAmount);
+            console.log(`//////////${user.nom} uses Potion and heals for ${healAmount} HP.`);
+            pause(3000);
+        } else {
+            console.log(`BRO, YOU ARE DEAD YOU CAN ONLY USE STARPIECE OR MIDSTAR TO RESURECT`);
+            pause(5000);
+            console.log(`YOU LOSE POTION ! TURN SKIPPED`);
+            pause(3000);
+        }
+       
     }
 
     useStarPiece(user: Character): void {
@@ -230,16 +247,20 @@ class Fight {
         }
     }
 
-    showActions(): void {
-        console.log("---ACTIONS---\n");
-        console.log("- 1 : Attack a monster.");
-        console.log("- 2 : Heal a team member.");
-        console.log("- 3 : Use an item from inventory.");
-    }
-    showActions2(): void {
-        console.log("---ACTIONS---\n");
-        console.log("- 1 : Heal a team member.");
-        console.log("- 2 : Use an item from inventory.");
+    treatmentAfterRoom(damage : number, item : string): void {
+        if(item === "DANGER !!! SNAKES"){
+            this.team.forEach(member => {
+                member.pointsDeVieCourants = member.pointsDeVieCourants - damage;
+                console.log(`${member.nom.toUpperCase()} LOSE ${damage}HP ! --- CURRENT HP:${member.pointsDeVieCourants}`)
+            });
+            pause(5000);
+        } else {
+            this.team.forEach(member => {
+                member.inventory.addItem(item)
+            });
+            console.log(`${item} A ETE AJOUTE A VOTRE INVENTAIRE !`)
+            pause(5000);
+        }
     }
 }
 
