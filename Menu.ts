@@ -7,6 +7,13 @@ class Menu {
         this.characters = characters;
     }
 
+    showActions(): void {
+        console.log("Actions:");
+        console.log("- attack: Attack a monster.");
+        console.log("- heal: Heal a team member.");
+        console.log("- item: Use an item from inventory.");
+    }
+
     printCharacters() {
         console.log("Voici les personnages disponibles :");
         for (let i = 0; i < this.characters.length; i++) {

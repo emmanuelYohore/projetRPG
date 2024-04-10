@@ -6,16 +6,19 @@ import Mage from "./classes/Mage.ts";
 import Paladin from "./classes/Paladin.ts";
 import Pretre from "./classes/Pretre.ts";
 import Voleur from "./classes/Voleur.ts";
+import Menu from "./Menu.ts";
 
 class Fight {
     team: Character[];
     monsters: Character[];
     turnOrder: Character[];
+    menu: Menu; 
 
     constructor(team: Character[], monsters: Character[]) {
         this.team = team;
         this.monsters = monsters;
         this.turnOrder = this.calculateTurnOrder();
+        this.menu = new Menu([])
     }
 
     calculateTurnOrder(): Character[] {
@@ -45,7 +48,7 @@ class Fight {
 
     playerTurn(player: Character): void {
         console.log(`${player.nom}'s (${player.pointsDeVieCourants} HP) turn:`);
-        this.showActions();
+        this.menu.showActions()
     
         const action = prompt("Choose an action (attack/heal/item/special): ");
         switch (action) {
@@ -65,9 +68,7 @@ class Fight {
                     player.attaqueSpecial(this.monsters);
                 } else if (player instanceof Paladin) {
                     player.attaqueSpecial(this.monsters); 
-                } else {
-                    console.log("Invalid action for this character. Skipping turn.");
-                }
+                } 
                 break;
             default:
                 console.log("Invalid action. Skipping turn.");
@@ -169,13 +170,10 @@ class Fight {
         return this.monsters.some(monster => monster.pointsDeVieCourants > 0);
     }
 
-    showActions(): void {
-        console.log("Actions:");
-        console.log("- attack: Attack a monster.");
-        console.log("- heal: Heal a team member.");
-        console.log("- item: Use an item from inventory.");
-    }
-}
+ 
+
+
+ }
 
 
 export default Fight;
