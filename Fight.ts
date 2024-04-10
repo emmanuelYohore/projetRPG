@@ -1,7 +1,6 @@
 import Character from "./classes/Character.ts";
 import Barbare from "./classes/Barbare.ts"
 import Inventory from "./Inventory.ts";
-import Barbare from "./classes/Barbare.ts"
 import {pause} from "./GameManager.ts"
 
 class Fight {
@@ -102,11 +101,8 @@ class Fight {
         } else {
             console.log(`${player.nom} can't do anything ! he is dead !`)
             this.team = this.team.filter(item => item !== player)
-        }   
+        }
     }
-    
-    
-    
 
     attack(attacker: Character): void {
         console.log(`SELECT TARGET FOR ${attacker.nom.toUpperCase()}: \n`);
