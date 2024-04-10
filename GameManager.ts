@@ -1,6 +1,14 @@
 import Character from "./classes/Character.ts";
 import Room from "./Room.ts";
 
+export function pause(milliseconds: number) {
+    const date = Date.now();
+    let currentDate: number;
+    do {
+        currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+}
+
 class GameManager {
     team: Character[];
     rooms: Room[];
@@ -13,12 +21,15 @@ class GameManager {
     }
 
     startGame() {
-        console.log("Welcome to the dungeon!");
+        console.log("STARTING THE GAME---------------");
+        pause(2000);
+        console.clear()
         while (this.currentRoomIndex < this.rooms.length && this.teamIsAlive()) {
             const currentRoom = this.rooms[this.currentRoomIndex];
-            console.log(`You entered room ${this.currentRoomIndex + 1}`);
+            console.log(`----------------------------------------------------------------------------------\\\\\\-ROOM ${this.currentRoomIndex + 1}-///---------------------------------------------------------------------------------\n`);
+            pause(2000)
             currentRoom.enterRoom(this.team);
-            if (currentRoom.monsters.length === 0) {
+            if (this.teamIsAlive()) {
                 console.log("Room cleared!");
                 this.currentRoomIndex++;
             }
@@ -31,8 +42,9 @@ class GameManager {
     }
 
     teamIsAlive(): boolean {
-        return this.team.some(member => member.pointsDeVieCourants > 0);
+        return this.team.length !== 0;
     }
 }
+
 
 export default GameManager;

@@ -2,7 +2,7 @@ class Inventory {
     items: string[] =["Potion", "Elixir", "Ether", "Star"];
 
     constructor() {
-        this.items = ["Potion", "Elixir", "Ether", "Star"];
+        this.items = ["Potion", "StarPiece", "MidStar", "Ether"];
     }
 
     addItem(item: string): void {

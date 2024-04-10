@@ -1,6 +1,6 @@
 import Character from "./Character.ts";
-
 import SpecialAttack from "./SpecialAttack.ts";
+import {pause} from "../GameManager.ts"
 
 export default class Barbare extends Character implements SpecialAttack{
     constructor(nom: string) {
@@ -19,5 +19,6 @@ export default class Barbare extends Character implements SpecialAttack{
         
         console.log(`${this.nom} attacks ${ennemi.nom} for ${degats} damage!`);
         console.log(`${this.nom} takes ${blessure} damage due to Berserk!`);
+        pause(5000);
     }
 }

@@ -1,5 +1,6 @@
 import Character from "./Character.ts";
 import SpecialAttack from "./SpecialAttack.ts";
+import {pause} from "../GameManager.ts"
 
 class Paladin extends Character implements SpecialAttack {
     constructor(nom: string) {
@@ -11,10 +12,8 @@ class Paladin extends Character implements SpecialAttack {
             const degats = Math.max(0, Math.floor((this.attaquePhysique - adversaire.defensePhysique) * 0.4));
             adversaire.perdreVie(degats);
             console.log(`${this.nom} inflige ${degats} dégâts à ${adversaire.nom}`);
+            pause(3000);
         });
     }
-    
-    
 }
-
 export default Paladin;

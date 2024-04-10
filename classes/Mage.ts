@@ -1,11 +1,10 @@
+import { pause } from "../GameManager.ts";
 import Character from "./Character.ts";
 import SpecialAttack from "./SpecialAttack.ts";
 
 class Mage extends Character implements SpecialAttack {
-    
-
     constructor(nom: string) {
-        super(nom, 15, 10, 20, 100, 100,90);
+        super(nom, 15, 10, 20, 100, 100,150);
         
     }
 
@@ -15,6 +14,7 @@ class Mage extends Character implements SpecialAttack {
         const degats = this.attaquePhysique;
         ennemi.perdreVie(degats);
         console.log(`${this.nom} inflige ${degats} dégâts à ${ennemi.nom}`);
+        pause(5000);
     }
 }
 
