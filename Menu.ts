@@ -14,31 +14,6 @@ class Menu {
         }
     }
 
-
-    /* choice() {
-        this.printPerso();
-        let choix = parseInt(prompt("Choisissez un nombre entre 1 et 6 : "));
-        if (isNaN(choix) || choix < 1 || choix > 6) {
-            console.log("Erreur : Veuillez saisir un nombre entre 1 et 6.");
-            this.choice();
-        } else {
-            let confirmChoice = prompt("Confirmer votre choix : 'ok', 'non'");
-            if (confirmChoice === "ok") {
-                this.persoC.push(this.perso[choix - 1]);
-                console.log(`Vous avez choisi ${this.persoC.join(', ')}`);
-            } else if (confirmChoice === "non") {
-                this.choice();
-            } else {
-                console.log("Choisissez une option valide.");
-                this.choice();
-                confirmChoice = prompt("Confirmer votre choix : 'ok', 'non'");
-
-            }
-        }
-    }
-}
-    */
-
 chooseCharacters(): Character[] {
     const selectedCharacters: Character[] = [];
 
@@ -53,11 +28,11 @@ chooseCharacters(): Character[] {
                 console.log("Erreur : Vous avez déjà choisi ce personnage.");
             } else {
                 console.log(`Vous avez choisi ${selectedCharacter.nom}. Confirmez-vous ce choix ? (oui/non)`);
-                const confirmation = prompt("").toLowerCase();
-                if (confirmation === 'oui') {
+                const confirmation = prompt("1- oui  2- non").toLowerCase();
+                if (confirmation === '1') {
                     selectedCharacters.push(selectedCharacter);
                     console.log(`${selectedCharacter.nom} a été ajouté à votre équipe.`);
-                } else if (confirmation === 'non') {
+                } else if (confirmation === '2') {
                     console.log(`Vous avez annulé la sélection de ${selectedCharacter.nom}.`);
                 } else {
                     console.log("Erreur : Réponse non valide. Veuillez répondre par 'oui' ou 'non'.");
