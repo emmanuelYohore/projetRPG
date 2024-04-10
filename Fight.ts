@@ -1,4 +1,5 @@
 import Character from "./classes/Character.ts";
+import Barbare from "./classes/Barbare.ts"
 import Inventory from "./Inventory.ts";
 
 class Fight {
@@ -40,7 +41,7 @@ class Fight {
     playerTurn(player: Character): void {
         console.log(`${player.nom}'s(${player.pointsDeVieCourants}HP) turn:`);
         this.showActions();
-        const action = prompt("Choose an action (attack/heal/item): ");
+        const action = prompt("Choose an action (attack/heal/item/specialFeatures): ");
         switch (action) {
             case "attack":
                 this.attack(player);
@@ -50,6 +51,13 @@ class Fight {
                 break;
             case "item":
                 this.useItem(player);
+                break;
+            case "specialFeatures":
+                if (player instanceof Barbare) {
+                    player.attaqueBerserk(this.monsters[0]);
+                } else {
+                    console.log("No special feature available for this character.");
+                }
                 break;
             default:
                 console.log("Invalid action. Skipping turn.");
@@ -123,6 +131,7 @@ class Fight {
         console.log("- attack: Attack a monster.");
         console.log("- heal: Heal a team member.");
         console.log("- item: Use an item from inventory.");
+        console.log("- special features: Use special features")
     }
 }
 

@@ -5,7 +5,7 @@ class Paladin extends Character {
         super(nom, 18, 18, 12, 100, 100);
     }
 
-    attaqueSainte(equipeAdversaire: Character[]): void {
+    specialAction(equipeAdversaire: Character[]): void {
         equipeAdversaire.forEach((adversaire) => {
             const degats = Math.floor((this.attaquePhysique - adversaire.defensePhysique) * 0.4);
             adversaire.perdreVie(degats);
