@@ -107,6 +107,7 @@ class Fight {
                     console.log("Invalid action. Skipping turn.");
             }
         } else if(player.pointsDeVieCourants <= 0 && player.inventory.items.length !== 0){
+            console.log("\x1b[33m%s\x1b[0m",`TURN OF ----> ${player.nom.toUpperCase()}(${player.pointsDeVieCourants}HP)----MANA${player.mana}\n`);
             this.menu.showActions2();
             const action = parseInt(prompt("\nYOUR CHOICE : ") || '0');;
             switch (action) {
@@ -193,11 +194,13 @@ class Fight {
         const restoreAmount = Math.floor(user.pointsDeVieMax * 0.2);
         const healAmount2 = Math.floor(user.pointsDeVieMax * 0.5);
         if(user.pointsDeVieCourants <= 0 ){
-            console.log(`//////////${user.nom} uses StarPiece to resurect and gain ${restoreAmount} % of his HP`);
+            console.log(`//////////${user.nom.toUpperCase()} USES STARPIECE TO RESURECT AND GAIN ${restoreAmount} % OF HIS HP !`);
             user.restaurerVie(restoreAmount)
+            pause(2000);
         } else {
             user.restaurerVie(healAmount2)
-            console.log(`//////////${user.nom} uses StarPiece and gain ${healAmount2} % of his HP`)
+            console.log(`//////////${user.nom} USES STARPIECE AND GAIN ${healAmount2} % OF HIS HP !`)
+            pause(2000);
         }
     }
 
@@ -214,9 +217,11 @@ class Fight {
     }
 
     useEther(user: Character): void {
-        const restoreAmount = 50; // Example: Restore mana
-        // Implement logic to restore mana or any other effect
-        console.log(`${user.nom} uses Ether.`);
+        user.mana += 30;
+        console.log(`${user.nom.toUpperCase()} USES ETHER !\n`)
+        pause(3000);
+        console.log(`CURRENT MANA OF ${user.nom.toUpperCase} = ${user.mana} !`)
+        pause(3000);
     }
 
     monstersTurn(monster: Character): void {
