@@ -239,6 +239,22 @@ class Fight {
         console.log("- 1 : Heal a team member.");
         console.log("- 2 : Use an item from inventory.");
     }
+
+    treatmentAfterRoom(damage : number, item : string): void {
+        if(item === "DANGER !!! SNAKES"){
+            this.team.forEach(member => {
+                member.pointsDeVieCourants = member.pointsDeVieCourants - damage;
+                console.log(`${member.nom.toUpperCase()} LOSE ${damage}HP ! --- CURRENT HP:${member.pointsDeVieCourants}`)
+            });
+            pause(5000);
+        } else {
+            this.team.forEach(member => {
+                member.inventory.addItem(item)
+            });
+            console.log(`${item} A ETE AJOUTE A VOTRE INVENTAIRE !`)
+            pause(5000);
+        }
+    }
 }
 
 export default Fight;

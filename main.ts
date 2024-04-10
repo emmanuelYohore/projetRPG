@@ -18,9 +18,9 @@ const pretre = new Pretre("Prêtre");
 const voleur = new Voleur("Voleur");
 
 const room1 = new Room([new Monstre("Goblin1"), new Monstre("Goblin2")], []);
-const room2 = new Room([], ["Elixir"]);
-const room3 = new Room([new Monstre("Ange"), new Monstre("Demon")], ["Elixir"]);
-const room4 = new Room([], ["Ether"]);
+const room2 = new Room([], ["Potion","StarPiece","DANGER !!! SNAKES"]);
+const room3 = new Room([new Monstre("Ange"), new Monstre("Demon")], []);
+const room4 = new Room([], ["Ether", "Potion", "DANGER !!! SNAKES"]);
 const room5 = new Room([new Boss("Armageddon")], []);
 
 console.clear()
