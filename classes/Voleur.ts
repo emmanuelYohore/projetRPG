@@ -5,7 +5,7 @@ class Voleur extends Character {
         super(nom, 18, 12, 25, 80, 80);
     }
 
-    specialAction(adversaire: Character): string {
+    volerObjet(adversaire: Character): string {
         const chance = Math.random() * 100;
         if (chance < 40) {
             return 'Rien n\'a été volé.';

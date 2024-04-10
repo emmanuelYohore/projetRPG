@@ -8,7 +8,7 @@ class Mage extends Character {
         this.mana = 100;
     }
 
-    specialAction(adversaire: Character): void {
+    attaqueMagique(adversaire: Character): void {
         if (this.mana >= 20) {
             const degats = 20; // Exemple de dégâts magiques
             adversaire.perdreVie(degats);

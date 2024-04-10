@@ -5,7 +5,7 @@ class Pretre extends Character {
         super(nom, 15, 8, 15, 70, 70);
     }
 
-    specialAction(ally: Character): void {
+    soin(ally: Character): void {
         const soin = Math.floor(ally.pointsDeVieMax * 0.25);
         ally.restaurerVie(soin);
     }
