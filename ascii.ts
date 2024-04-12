@@ -1,4 +1,5 @@
-const asciiArt = `
+ export default function boss(){
+    const asciiArt = `
 
 ▀█████████▄   ▄██████▄     ▄████████    ▄████████ 
   ███    ███ ███    ███   ███    ███   ███    ███ 
@@ -12,3 +13,8 @@ const asciiArt = `
 
 `;
 console.log(asciiArt);
+  }
+
+
+
+
