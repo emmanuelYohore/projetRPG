@@ -2,7 +2,7 @@ import Character from "./classes/Character.ts";
 import Fight from "./Fight.ts";
 import Inventory from "./Inventory.ts";
 import {pause} from "./GameManager.ts"
-import boss from "./ascci.ts";
+import boss from "./ascii.ts";
 
 class Room {
     monsters: Character[];
