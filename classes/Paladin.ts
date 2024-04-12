@@ -11,7 +11,7 @@ class Paladin extends Character implements SpecialAttack {
         adversaires.forEach(adversaire => {
             const degats = Math.max(0, Math.floor((this.attaquePhysique - adversaire.defensePhysique) * 0.4));
             adversaire.perdreVie(degats);
-            console.log(`${this.nom} inflige ${degats} dégâts à ${adversaire.nom}`);
+            console.log(`${this.nom} INFLICTS ${degats} DAMAGE TO ${adversaire.nom}`);
             pause(3000);
         });
     }

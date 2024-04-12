@@ -223,9 +223,11 @@ class Fight {
     }
 
     useEther(user: Character): void {
-        const restoreAmount = 50; // Example: Restore mana
-        // Implement logic to restore mana or any other effect
-        console.log(`${user.nom} uses Ether.`);
+        user.mana += 30;
+        console.log(`${user.nom.toUpperCase()} USES ETHER !\n`)
+        pause(3000);
+        console.log(`CURRENT MANA OF ${user.nom.toUpperCase} = ${user.mana} !`)
+        pause(3000);
     }
 
     monstersTurn(monster: Character): void {
