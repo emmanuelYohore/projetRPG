@@ -53,7 +53,21 @@ class Room {
                 } 
             }     
         } else if(this.monsters.length === 1) {
-            console.log("DANGER !!! THE BOSS IS HERE \n");
+            const asciiArt = `
+
+▀█████████▄   ▄██████▄     ▄████████    ▄████████ 
+  ███    ███ ███    ███   ███    ███   ███    ███ 
+  ███    ███ ███    ███   ███    █▀    ███    █▀  
+ ▄███▄▄▄██▀  ███    ███   ███          ███        
+▀▀███▀▀▀██▄  ███    ███ ▀███████████ ▀███████████ 
+  ███    ██▄ ███    ███          ███          ███ 
+  ███    ███ ███    ███    ▄█    ███    ▄█    ███ 
+▄█████████▀   ▀██████▀   ▄████████▀   ▄████████▀  
+                                                  
+
+`;
+            console.log(asciiArt)  
+                console.log("DANGER !!! THE BOSS IS HERE \n");
             pause(3000)
             this.fight = new Fight(team, this.monsters);
             this.fight.startFight();
