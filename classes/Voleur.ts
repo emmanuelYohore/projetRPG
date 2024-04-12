@@ -8,38 +8,38 @@ class Voleur extends Character{
 
     vol( monster : Character){
         const chance = Math.random() * 100;
-        console.log(`CHANCE : ${chance}----LE VOLEUR VA ESSAYER DE VOLER UN OBJET`)
+        console.log(`CHANCE : ${chance}----ATTEMPT TO STEAL...`)
         pause(3000);
 
         if (chance < 40) {
-            console.log("RIEN N'EST VOLÉ");
+            console.log("FOUND NOTHING");
             pause(3000);
         } else if (chance < 70) {
             if (monster.inventory.items.includes('Potion')) {
                 monster.inventory.removeItem('Potion');
                 this.inventory.addItem('Potion');
-                console.log("UNE POTION EST VOLÉE");
+                console.log("POTION IS STOLEN !");
             } 
             pause(3000);
         } else if (chance < 85) {
             if (monster.inventory.items.includes('StarPiece')) {
                 monster.inventory.removeItem('StarPiece');
                 this.inventory.addItem('StarPiece');
-                console.log("UN FRAGMENT D'ÉTOILE EST VOLÉ");
+                console.log("STARPIECE IS STOLEN !");
             } 
             pause(3000);
         } else if (chance < 95) {
             if (monster.inventory.items.includes('Ether')) {
                 monster.inventory.removeItem('Ether');
                 this.inventory.addItem('Ether');
-                console.log("UN ÉTHER EST VOLÉ");
+                console.log("ETHER IS STOLEN");
             }
             pause(3000);
         } else {
             if (monster.inventory.items.includes('MidStar')) {
                 monster.inventory.removeItem('MidStar');
                 this.inventory.addItem('MidStar');
-                console.log("UNE DEMI-ÉTOILE EST VOLÉE");
+                console.log("MIDSTAR IS STOLEN !");
             } 
             pause(3000);
         }

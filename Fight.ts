@@ -90,7 +90,10 @@ class Fight {
                         } else if (player instanceof Mage){
                             player.attaqueSpecial(this.monsters);
                             player.mana -= 30;
-                        }else if (player instanceof Voleur){
+                        }  else if(player instanceof Pretre) {
+                            player.attaqueSpecial(this.team)
+                            player.mana -= 30
+                        } else if (player instanceof Voleur){
                             const targetIndex = Math.floor(Math.random() * this.monsters.length);
                             const target = this.monsters[targetIndex];
                             player.vol(target);
