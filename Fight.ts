@@ -230,7 +230,7 @@ class Fight {
             user.restaurerVie(restoreAmount2)
         } else {
             user.restaurerVie(healAmount3)
-            console.log(`//////////${user.nom} USES STARPIECE AND RECOVER HIS FULL HP !`)
+            console.log(`//////////${user.nom.toUpperCase()} USES STARPIECE AND RECOVER HIS FULL HP !`)
         }
     }
 
@@ -238,7 +238,7 @@ class Fight {
         user.mana += 30;
         console.log(`${user.nom.toUpperCase()} USES ETHER !\n`)
         pause(3000);
-        console.log(`CURRENT MANA OF ${user.nom.toUpperCase} = ${user.mana} !`)
+        console.log(`CURRENT MANA OF ${user.nom.toUpperCase()} = ${user.mana} !`)
         pause(3000);
     }
 

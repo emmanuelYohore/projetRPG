@@ -14,9 +14,9 @@ class Mage extends Character implements SpecialAttack {
         const degats = this.attaquePhysique;
         ennemi.perdreVie(degats);
 
-        console.log(`${this.nom.toUpperCase} USES MAGIC FLASH !`)
+        console.log(`${this.nom.toUpperCase()} USES MAGIC FLASH !`)
         pause(3000);
-        console.log(`${this.nom.toUpperCase} INFLICTS ${degats} DAMAGE TO ${ennemi.nom}`);
+        console.log(`${this.nom.toUpperCase()} INFLICTS ${degats} DAMAGE TO ${ennemi.nom}`);
         pause(3000);
     }
 }
