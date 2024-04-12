@@ -6,6 +6,8 @@ import Paladin from "./classes/Paladin.ts";
 import Pretre from "./classes/Pretre.ts";
 import Voleur from "./classes/Voleur.ts";
 import Menu from "./Menu.ts";
+import Monstre from "./classes/Monstre.ts";
+import Boss from "./classes/Boss.ts"
 
 class Fight {
     team: Character[];
@@ -96,6 +98,11 @@ class Fight {
                         }else if(player instanceof Pretre) {
                             player.attaqueSpecial(this.team)
                             player.mana -= 30
+                        } else if(player instanceof Voleur) {
+                            const targetIndex = Math.floor(Math.random() * this.monsters.length);
+                            const target = this.monsters[targetIndex];
+                            player.vol(target);
+                            player.mana -= 30;
                         } else {
                             console.log(`NO SPECIAL ABILITY FOR ${player.nom.toUpperCase()}. TURN SKIPPED !`);
                             pause(5000);
@@ -229,12 +236,30 @@ class Fight {
 
     monstersTurn(monster: Character): void {
         console.log('\x1b[31m%s\x1b[0m',`TURN OF ----> ${monster.nom.toUpperCase()}(${monster.pointsDeVieCourants}HP)\n`);
-        const targetIndex = Math.floor(Math.random() * this.team.length);
-        const target = this.team[targetIndex];
-        const damage = monster.attaquePhysique - target.defensePhysique;
-        target.perdreVie(damage);
-        console.log('\x1b[31m%s\x1b[0m',`${monster.nom.toUpperCase()} ATTACKS ${target.nom.toUpperCase()} FOR ${damage} DAMAGE!\n`);
-        pause(3000);
+        if (monster instanceof Monstre){
+            const targetIndex = Math.floor(Math.random() * this.team.length);
+            const target = this.team[targetIndex];
+            const damage = monster.attaquePhysique - target.defensePhysique;
+            target.perdreVie(damage);
+            console.log('\x1b[31m%s\x1b[0m',`${monster.nom.toUpperCase()} ATTACKS ${target.nom.toUpperCase()} FOR ${damage} DAMAGE!\n`);
+            pause(3000);
+        } else {
+            const actionChance = Math.floor(Math.random() * 100);
+            if(actionChance <= 70){
+                const targetIndex = Math.floor(Math.random() * this.team.length);
+                const target = this.team[targetIndex];
+                const damage = monster.attaquePhysique - target.defensePhysique;
+                target.perdreVie(damage);
+                console.log('\x1b[31m%s\x1b[0m',`${monster.nom.toUpperCase()} ATTACKS ${target.nom.toUpperCase()} FOR ${damage} DAMAGE!\n`);
+                pause(3000);
+            } else {
+                console.log('\x1b[31m%s\x1b[0m',`${monster.nom.toUpperCase()} USES END OF THE WORD ! BEWARE !!!`)
+                pause(5000);
+                if (monster instanceof Boss) {
+                    monster.attaqueSpecial(this.team);
+                }        
+            }
+        }    
     }
 
     teamIsAlive(): boolean {
