@@ -1,11 +1,13 @@
 import Character from "./classes/Character.ts";
-import {pause} from "./GameManager.ts"
-import Barbare from "./classes/Barbare.ts"
+import {pause} from "./GameManager.ts";
+import Barbare from "./classes/Barbare.ts";
 import Mage from "./classes/Mage.ts";
 import Paladin from "./classes/Paladin.ts";
 import Pretre from "./classes/Pretre.ts";
 import Voleur from "./classes/Voleur.ts";
 import Menu from "./Menu.ts";
+import Monstre from "./classes/Monstre.ts";
+import Boss from "./classes/Boss.ts"
 
 class Fight {
     team: Character[];
@@ -100,6 +102,14 @@ class Fight {
                             player.mana -= 30;
                         } else if (player instanceof Paladin) {
                             player.attaqueSpecial(this.monsters); 
+                            player.mana -= 30;
+                        }else if(player instanceof Pretre) {
+                            player.attaqueSpecial(this.team)
+                            player.mana -= 30
+                        } else if(player instanceof Voleur) {
+                            const targetIndex = Math.floor(Math.random() * this.monsters.length);
+                            const target = this.monsters[targetIndex];
+                            player.vol(target);
                             player.mana -= 30;
                         } else {
                             console.log(`NO SPECIAL ABILITY FOR ${player.nom.toUpperCase()}. TURN SKIPPED !`);
@@ -202,11 +212,13 @@ class Fight {
         const restoreAmount = Math.floor(user.pointsDeVieMax * 0.2);
         const healAmount2 = Math.floor(user.pointsDeVieMax * 0.5);
         if(user.pointsDeVieCourants <= 0 ){
-            console.log(`//////////${user.nom} uses StarPiece to resurect and gain ${restoreAmount} % of his HP`);
+            console.log(`//////////${user.nom.toUpperCase()} USES STARPIECE TO RESURECT AND GAIN ${restoreAmount} % OF HIS HP !`);
             user.restaurerVie(restoreAmount)
+            pause(2000);
         } else {
             user.restaurerVie(healAmount2)
-            console.log(`//////////${user.nom} uses StarPiece and gain ${healAmount2} % of his HP`)
+            console.log(`//////////${user.nom} USES STARPIECE AND GAIN ${healAmount2} % OF HIS HP !`)
+            pause(2000);
         }
     }
 
@@ -232,12 +244,30 @@ class Fight {
 
     monstersTurn(monster: Character): void {
         console.log('\x1b[31m%s\x1b[0m',`TURN OF ----> ${monster.nom.toUpperCase()}(${monster.pointsDeVieCourants}HP)\n`);
-        const targetIndex = Math.floor(Math.random() * this.team.length);
-        const target = this.team[targetIndex];
-        const damage = monster.attaquePhysique - target.defensePhysique;
-        target.perdreVie(damage);
-        console.log('\x1b[31m%s\x1b[0m',`${monster.nom.toUpperCase()} ATTACKS ${target.nom.toUpperCase()} FOR ${damage} DAMAGE!\n`);
-        pause(3000);
+        if (monster instanceof Monstre){
+            const targetIndex = Math.floor(Math.random() * this.team.length);
+            const target = this.team[targetIndex];
+            const damage = monster.attaquePhysique - target.defensePhysique;
+            target.perdreVie(damage);
+            console.log('\x1b[31m%s\x1b[0m',`${monster.nom.toUpperCase()} ATTACKS ${target.nom.toUpperCase()} FOR ${damage} DAMAGE!\n`);
+            pause(3000);
+        } else {
+            const actionChance = Math.floor(Math.random() * 100);
+            if(actionChance <= 70){
+                const targetIndex = Math.floor(Math.random() * this.team.length);
+                const target = this.team[targetIndex];
+                const damage = monster.attaquePhysique - target.defensePhysique;
+                target.perdreVie(damage);
+                console.log('\x1b[31m%s\x1b[0m',`${monster.nom.toUpperCase()} ATTACKS ${target.nom.toUpperCase()} FOR ${damage} DAMAGE!\n`);
+                pause(3000);
+            } else {
+                console.log('\x1b[31m%s\x1b[0m',`${monster.nom.toUpperCase()} USES END OF THE WORD ! BEWARE !!!`)
+                pause(5000);
+                if (monster instanceof Boss) {
+                    monster.attaqueSpecial(this.team);
+                }        
+            }
+        }    
     }
 
     teamIsAlive(): boolean {

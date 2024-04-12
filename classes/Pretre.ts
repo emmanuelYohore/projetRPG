@@ -1,9 +1,12 @@
+import { pause } from "../GameManager.ts";
 import Character from "./Character.ts";
 import { pause } from "../GameManager.ts";
 import SpecialAttack from "./SpecialAttack.ts";
 
 class Pretre extends Character implements SpecialAttack {
+class Pretre extends Character implements SpecialAttack {
     constructor(nom: string) {
+        super(nom, 15, 8, 15, 70, 70, 90);
         super(nom, 15, 8, 15, 70, 70, 90);
     }
 

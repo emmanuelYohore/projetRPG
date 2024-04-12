@@ -1,11 +1,14 @@
 import Character from "./Character.ts";
 import {pause} from "../GameManager.ts";
+import {pause} from "../GameManager.ts";
 
+class Voleur extends Character{
 class Voleur extends Character{
     constructor(nom: string) {
         super(nom, 18, 12, 25, 80, 80,90);
     }
 
+    vol( monster : Character){
     vol( monster : Character){
         const chance = Math.random() * 100;
         console.log(`CHANCE : ${chance}----ATTEMPT TO STEAL...`)
