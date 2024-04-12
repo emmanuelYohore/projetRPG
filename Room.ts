@@ -2,6 +2,7 @@ import Character from "./classes/Character.ts";
 import Fight from "./Fight.ts";
 import Inventory from "./Inventory.ts";
 import {pause} from "./GameManager.ts"
+import boss from "./ascci.ts";
 
 class Room {
     monsters: Character[];
@@ -53,8 +54,9 @@ class Room {
                 } 
             }     
         } else if(this.monsters.length === 1) {
-            console.log("DANGER !!! THE BOSS IS HERE \n");
-            pause(3000)
+            boss();
+            console.log("\nDANGER !!! THE BOSS IS HERE \n");
+            pause(6000)
             this.fight = new Fight(team, this.monsters);
             this.fight.startFight();
             if (this.fight.teamIsAlive()) {

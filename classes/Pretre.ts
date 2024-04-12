@@ -5,11 +5,12 @@ import SpecialAttack from "./SpecialAttack.ts";
 class Pretre extends Character implements SpecialAttack {
     constructor(nom: string) {
         super(nom, 15, 8, 15, 70, 70, 90);
-        super(nom, 15, 8, 15, 70, 70, 90);
     }
 
     attaqueSpecial(adversaire: Character[]): void {
         let recuperation: number 
+        console.log(`${this.nom.toUpperCase} USES HEALING !`)
+        pause(3000);
         for (let i of adversaire){
             recuperation = Math.floor(i.pointsDeVieMax * 0.25)
             let recuperation2 = i.pointsDeVieMax - i.pointsDeVieCourants

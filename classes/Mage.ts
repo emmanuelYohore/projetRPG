@@ -13,8 +13,11 @@ class Mage extends Character implements SpecialAttack {
         const ennemi = adversaire[Math.floor(Math.random() * adversaire.length)];
         const degats = this.attaquePhysique;
         ennemi.perdreVie(degats);
-        console.log(`${this.nom} INFLICTS ${degats} DAMAGE TO ${ennemi.nom}`);
-        pause(5000);
+
+        console.log(`${this.nom.toUpperCase} USES MAGIC FLASH !`)
+        pause(3000);
+        console.log(`${this.nom.toUpperCase} INFLICTS ${degats} DAMAGE TO ${ennemi.nom}`);
+        pause(3000);
     }
 }
 

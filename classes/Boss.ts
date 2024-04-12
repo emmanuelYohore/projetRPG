@@ -4,7 +4,7 @@ import {pause} from "../GameManager.ts";
 
 class Boss extends Character implements SpecialAttack{
     constructor(nom: string) {
-        super(nom, 30, 20, 25, 150, 150,200);
+        super(nom, 30, 10, 25, 500, 500,0);
     }
 
     attaqueSpecial(ennemis: Character[]): void {

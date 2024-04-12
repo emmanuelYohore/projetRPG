@@ -68,7 +68,7 @@ class Fight {
                     pause(3000);
             }
         }
-        console.log("The fight is over.");
+        console.log("THE FIGHT IS OVER.");
     }
 
     playerTurn(player: Character): void {
@@ -122,7 +122,7 @@ class Fight {
                     this.useItem(player);
                     break;
                 default:
-                    console.log("Invalid action. Skipping turn.");
+                    console.log("INVALID ACTION. SKIPPING TURN.");
             }
         } else if(player.pointsDeVieCourants <= 0 && player.inventory.items.length !== 0){
             console.log("\x1b[33m%s\x1b[0m",`TURN OF ----> ${player.nom.toUpperCase()}(${player.pointsDeVieCourants}HP)----MANA${player.mana}\n`);
@@ -133,10 +133,10 @@ class Fight {
                     this.useItem(player);
                     break;
                 default:
-                    console.log("Invalid action. Skipping turn.");
+                    console.log("INVALID ACTION. SKIPPING TURN.");
             }
         } else {
-            console.log(`${player.nom} can't do anything ! he is dead !`)
+            console.log(`${player.nom} CAN'T DO ANYTHING ! HE IS DEAD !`)
             this.team = this.team.filter(item => item !== player)
         }   
     }
@@ -167,9 +167,9 @@ class Fight {
     }
 
     useItem(user: Character): void {
-        console.log("Inventory:");
+        console.log("INVENTORY: ");
         user.inventory.showItems();
-        const itemName : string = prompt("Choose an item to use: ");
+        const itemName : string = prompt("CHOOSE AN ITEM TO USE: ");
         if (user.inventory.items.includes(itemName)) {
             switch (itemName) {
                 case "Potion":
@@ -185,11 +185,11 @@ class Fight {
                     this.useEther(user);
                     break;
                 default:
-                    console.log("Item effect not implemented.");
+                    console.log("ITEM EFFECT NOT IMPLEMENTED.");
             }
             user.inventory.removeItem(itemName);
         } else {
-            console.log("Item not found in inventory. Turn skipped.");
+            console.log("ITEM NOT FOUND IN INVENTORY. TTURN SKIPPED.");
         }
     }
 
@@ -197,7 +197,7 @@ class Fight {
         if (user.pointsDeVieCourants > 0){
             const healAmount = Math.floor(user.pointsDeVieMax * 0.5);
             user.restaurerVie(healAmount);
-            console.log(`//////////${user.nom} uses Potion and heals for ${healAmount} HP.`);
+            console.log(`//////////${user.nom} USES POTION AND HEALS FOR ${healAmount} HP.`);
             pause(3000);
         } else {
             console.log(`BRO, YOU ARE DEAD YOU CAN ONLY USE STARPIECE OR MIDSTAR TO RESURECT`);
@@ -226,11 +226,11 @@ class Fight {
         const restoreAmount2 = user.pointsDeVieMax;
         const healAmount3 = user.pointsDeVieMax - user.pointsDeVieCourants;
         if(user.pointsDeVieCourants <= 0 ){
-            console.log(`//////////${user.nom} uses MidStar to resurect with his full HP !`);
+            console.log(`//////////${user.nom} USES MIDSTAR TO RESURECT WITH HIS FULL HP !`);
             user.restaurerVie(restoreAmount2)
         } else {
             user.restaurerVie(healAmount3)
-            console.log(`//////////${user.nom} uses StarPiece and recover his full HP !`)
+            console.log(`//////////${user.nom} USES STARPIECE AND RECOVER HIS FULL HP !`)
         }
     }
 
@@ -300,7 +300,7 @@ class Fight {
             this.team.forEach(member => {
                 member.inventory.addItem(item)
             });
-            console.log(`${item} A ETE AJOUTE A VOTRE INVENTAIRE !`)
+            console.log(`${item} ADDED !`)
             pause(5000);
         }
     }
