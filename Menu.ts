@@ -13,7 +13,7 @@ class Menu {
         console.log("- 2 : Use special abitlity");
         console.log("- 3 : Use an item from inventory.");
     }
-
+    
     showActions2(): void {
         console.log("---ACTIONS---\n");
         console.log("- 1 : Use an item from inventory.");

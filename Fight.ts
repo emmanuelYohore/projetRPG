@@ -1,6 +1,4 @@
 import Character from "./classes/Character.ts";
-import Barbare from "./classes/Barbare.ts"
-import Inventory from "./Inventory.ts";
 import {pause} from "./GameManager.ts"
 import Barbare from "./classes/Barbare.ts"
 import Mage from "./classes/Mage.ts";
@@ -92,6 +90,11 @@ class Fight {
                         } else if (player instanceof Mage){
                             player.attaqueSpecial(this.monsters);
                             player.mana -= 30;
+                        }else if (player instanceof Voleur){
+                            const targetIndex = Math.floor(Math.random() * this.monsters.length);
+                            const target = this.monsters[targetIndex];
+                            player.vol(target);
+                            player.mana -= 30;
                         } else if (player instanceof Paladin) {
                             player.attaqueSpecial(this.monsters); 
                             player.mana -= 30;
@@ -109,6 +112,7 @@ class Fight {
                     console.log("Invalid action. Skipping turn.");
             }
         } else if(player.pointsDeVieCourants <= 0 && player.inventory.items.length !== 0){
+            console.log("\x1b[33m%s\x1b[0m",`TURN OF ----> ${player.nom.toUpperCase()}(${player.pointsDeVieCourants}HP)----MANA${player.mana}\n`);
             this.menu.showActions2();
             const action = parseInt(prompt("\nYOUR CHOICE : ") || '0');;
             switch (action) {
@@ -121,7 +125,7 @@ class Fight {
         } else {
             console.log(`${player.nom} can't do anything ! he is dead !`)
             this.team = this.team.filter(item => item !== player)
-        }
+        }   
     }
 
     attack(attacker: Character): void {
@@ -247,6 +251,9 @@ class Fight {
         }
     }
 
+    
+    
+
     treatmentAfterRoom(damage : number, item : string): void {
         if(item === "DANGER !!! SNAKES"){
             this.team.forEach(member => {
@@ -264,8 +271,4 @@ class Fight {
     }
 }
 
-
 export default Fight;
-
-
-
