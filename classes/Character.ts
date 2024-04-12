@@ -1,4 +1,4 @@
-import Inventory from "../Inventory.ts";
+import Inventory from "../game/Inventory.ts";
 
 class Character {
     nom: string;

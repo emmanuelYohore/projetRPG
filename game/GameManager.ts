@@ -1,4 +1,4 @@
-import Character from "./classes/Character.ts";
+import Character from "../classes/Character.ts";
 import Room from "./Room.ts";
 
 export function pause(milliseconds: number) {
@@ -45,6 +45,5 @@ class GameManager {
         return this.team.length !== 0;
     }
 }
-
 
 export default GameManager;

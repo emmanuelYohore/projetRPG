@@ -1,4 +1,4 @@
-import Character from "./classes/Character.ts";
+import Character from "../classes/Character.ts";
 
 class Menu {
     characters: Character[];
@@ -9,15 +9,16 @@ class Menu {
 
     showActions(): void {
         console.log("---ACTIONS---\n");
-        console.log("- 1 : Attack a monster.");
-        console.log("- 2 : Use special abitlity");
-        console.log("- 3 : Use an item from inventory.");
+        console.log("- 1 : ATTACK A MONSTER.");
+        console.log("- 2 : USE SPECIAL ABILITY");
+        console.log("- 3 : USE AN ITEM FROM INVENTORY.");
     }
-
+    
     showActions2(): void {
         console.log("---ACTIONS---\n");
-        console.log("- 1 : Use an item from inventory.");
+        console.log("- 1 : USE AN ITEM FROM INVENTORY.");
     }
+    
 
     printCharacters() {
         console.log(`------------------------------------------------------------------------------\\\\\\-RPG GAME 2024-///------------------------------------------------------------------------------\n`)
