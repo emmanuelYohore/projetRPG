@@ -1,5 +1,5 @@
-Au début il faut lancer le programme en utilisant la commande : deno run main.ts 
+At first, you need to launch the program using the command: `deno run main.ts`.
 
-Ensuite, il faut suivre les instructions qui s'affichent à l'écran pour jouer au jeu.
+Then, follow the instructions displayed on the screen to play the game.
 
-Le jeu est un jeu de rôle où le joueur doit choisir un personnage parmi trois personnages proposés. Chaque personnage a des caractéristiques différentes. Le joueur doit ensuite choisir un adversaire parmi trois adversaires proposés. Chaque adversaire a des caractéristiques différentes. Le joueur doit ensuite choisir une action parmi trois actions proposées. Chaque action a un effet différent. Le joueur et l'adversaire attaquent à tour de rôle. Le joueur gagne si l'adversaire est vaincu. Le joueur perd si le joueur est vaincu. Le joueur peut choisir de rejouer ou de quitter le jeu à la fin de chaque partie.
+The game is a role-playing game where the player must choose a character from three proposed characters. Each character has different characteristics. The player must then choose an opponent from three proposed opponents. Each opponent has different characteristics. The player must then choose an action from three proposed actions. Each action has a different effect. The player and the opponent take turns attacking. The player wins if the opponent is defeated. The player loses if the player is defeated. The player can choose to replay or quit the game at the end of each round.

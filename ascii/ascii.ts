@@ -14,9 +14,3 @@
 `;
 console.log(asciiArt);
   }
-
-  
-
-
-
-
