@@ -19,11 +19,11 @@ const pretre = new Pretre("Prêtre");
 const voleur = new Voleur("Voleur");
 
 //initialisation des salles
-const room1 = new Room([new Monstre("Goblin1"), new Monstre("Goblin2")], []);
+const room1 = new Room([new Monstre("Goblin"), new Monstre("Orc"), new Monstre("Loup")], []);
 const room2 = new Room([], ["Potion","StarPiece","DANGER !!! SNAKES"]);
-const room3 = new Room([new Monstre("Ange"), new Monstre("Demon")], []);
+const room3 = new Room([new Monstre("Thanathos"), new Monstre("Hypnos"), new Monstre("Pandore")], []);
 const room4 = new Room([], ["Ether", "Potion", "DANGER !!! SNAKES"]);
-const room5 = new Room([new Boss("Armageddon")], []);
+const room5 = new Room([new Boss("HADES")], []);
 
 //lancement de la partie
 console.clear()

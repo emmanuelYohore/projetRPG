@@ -1,5 +1,5 @@
 import Character from "../characters/Character.ts";
-import {pause} from "./GameManager.ts";
+import { pause } from "./GameManager.ts";
 import Barbare from "../characters/Barbare.ts";
 import Mage from "../characters/Mage.ts";
 import Paladin from "../characters/Paladin.ts";
@@ -7,28 +7,60 @@ import Pretre from "../characters/Pretre.ts";
 import Voleur from "../characters/Voleur.ts";
 import Menu from "./Menu.ts";
 import Monstre from "../characters/Monstre.ts";
-import Boss from "../characters/Boss.ts"
+import Boss from "../characters/Boss.ts";
 
 export default class Fight {
-    team: Character[];
-    monsters: Character[];
-    turnOrder: Character[];
-    menu: Menu;
+    private _team: Character[];
+    private _monsters: Character[];
+    private _turnOrder: Character[];
+    private _menu: Menu;
 
     constructor(team: Character[], monsters: Character[]) {
-        this.team = team;
-        this.monsters = monsters;
-        this.turnOrder = this.calculateTurnOrder();
-        this.menu = new Menu([])
+        this._team = team;
+        this._monsters = monsters;
+        this._turnOrder = this.calculateTurnOrder();
+        this._menu = new Menu([]);
     }
 
-    calculateTurnOrder(): Character[] {
+    get team(): Character[] {
+        return this._team;
+    }
+
+    set team(team: Character[]) {
+        this._team = team;
+    }
+
+    get monsters(): Character[] {
+        return this._monsters;
+    }
+
+    set monsters(monsters: Character[]) {
+        this._monsters = monsters;
+    }
+
+    get turnOrder(): Character[] {
+        return this._turnOrder;
+    }
+
+    set turnOrder(turnOrder: Character[]) {
+        this._turnOrder = turnOrder;
+    }
+
+    get menu(): Menu {
+        return this._menu;
+    }
+
+    set menu(menu: Menu) {
+        this._menu = menu;
+    }
+
+    private calculateTurnOrder(): Character[] {
         const allCharacters = this.team.concat(this.monsters);
-        allCharacters.sort((a, b) => b.speed - a.speed); 
+        allCharacters.sort((a, b) => b.speed - a.speed);
         return allCharacters;
     }
 
-    startFight(): void {
+    public startFight(): void {
         console.log("A FIGHT BEGINS !");
         console.clear()
         let round = 1;
@@ -71,7 +103,7 @@ export default class Fight {
         console.log("THE FIGHT IS OVER.");
     }
 
-    playerTurn(player: Character): void {
+    private playerTurn(player: Character): void {
         if(player.currentHP > 0 ){
             console.clear()
             console.log('\x1b[32m%s\x1b[0m',`TURN OF ----> ${player.name.toUpperCase()}(${player.currentHP}HP)----MANA${player.mana}\n`);
@@ -138,7 +170,7 @@ export default class Fight {
         }   
     }
 
-    monstersTurn(monster: Character): void {
+    private monstersTurn(monster: Character): void {
         console.log('\x1b[31m%s\x1b[0m',`TURN OF ----> ${monster.name.toUpperCase()}(${monster.currentHP}HP)\n`);
         if (monster instanceof Monstre){
             const targetIndex = Math.floor(Math.random() * this.team.length);
@@ -166,7 +198,7 @@ export default class Fight {
         }    
     }
 
-    attack(attacker: Character): void {
+    private attack(attacker: Character): void {
         console.log(`SELECT TARGET FOR ${attacker.name.toUpperCase()}: \n`);
         this.monsters.forEach((monster, index) => {
             console.log(`${index + 1}. ${monster.name} (${monster.currentHP} HP)`);   
@@ -191,7 +223,7 @@ export default class Fight {
         console.clear()
     }
 
-    useItem(user: Character): void {
+    private useItem(user: Character): void {
         console.log("INVENTORY: ");
         user.inventory.showItems();
         const itemName : string = prompt("CHOOSE AN ITEM TO USE: ");
@@ -218,7 +250,7 @@ export default class Fight {
         }
     }
 
-    usePotion(user: Character): void {
+    private usePotion(user: Character): void {
         if (user.currentHP > 0){
             const healAmount = Math.floor(user.maxHP * 0.5);
             user.gainHP(healAmount);
@@ -232,7 +264,7 @@ export default class Fight {
         }  
     }
 
-    useStarPiece(user: Character): void {
+    private useStarPiece(user: Character): void {
         const restoreAmount = Math.floor(user.maxHP * 0.2);
         const healAmount2 = Math.floor(user.maxHP * 0.5);
         if(user.currentHP <= 0 ){
@@ -246,7 +278,7 @@ export default class Fight {
         }
     }
 
-    useMidStar(user: Character): void {
+    private useMidStar(user: Character): void {
         const restoreAmount2 = user.maxHP;
         const healAmount3 = user.maxHP - user.currentHP;
         if(user.currentHP <= 0 ){
@@ -258,7 +290,7 @@ export default class Fight {
         }
     }
 
-    useEther(user: Character): void {
+    private useEther(user: Character): void {
         user.mana += 30;
         console.log(`//////////${user.name.toUpperCase()} USES ETHER !\n`)
         pause(3000);
@@ -266,7 +298,7 @@ export default class Fight {
         pause(3000);
     }
 
-    teamIsAlive(): boolean {
+    public teamIsAlive(): boolean {
         if(this.team.length !== 0){
             return true;
         } else {
@@ -274,7 +306,7 @@ export default class Fight {
         }
     }
 
-    monstersAreAlive(): boolean {
+    public monstersAreAlive(): boolean {
         if(this.monsters.length !== 0){
             return true;
         } else {
@@ -282,7 +314,7 @@ export default class Fight {
         }
     }
 
-    treatmentAfterRoom(damage : number, item : string): void {
+    public treatmentAfterRoom(damage : number, item : string): void {
         if(item === "DANGER !!! SNAKES"){
             this.team.forEach(member => {
                 member.currentHP = member.currentHP - damage;

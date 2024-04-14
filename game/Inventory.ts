@@ -1,22 +1,30 @@
 export default class Inventory {
-    items: string[];
+    private _items: string[];
 
     constructor() {
-        this.items = ["Potion", "StarPiece", "MidStar", "Ether"];
+        this._items = ["Potion", "StarPiece", "MidStar", "Ether"];
     }
 
-    addItem(item: string): void {
-        this.items.push(item);
+    get items(): string[] {
+        return this._items;
     }
 
-    removeItem(item: string): void {
-        const index = this.items.indexOf(item);
+    set items(items: string[]) {
+        this._items = items;
+    }
+
+    public addItem(item: string): void {
+        this._items.push(item);
+    }
+
+    public removeItem(item: string): void {
+        const index = this._items.indexOf(item);
         if (index !== -1) {
-            this.items.splice(index, 1);
+            this._items.splice(index, 1);
         }
     }
 
-    showItems(): void {;
-        this.items.forEach(item => console.log("- " + item));
+    public showItems(): void {
+        this._items.forEach(item => console.log("- " + item));
     }
 }

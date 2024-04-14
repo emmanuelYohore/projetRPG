@@ -9,26 +9,49 @@ export function pause(milliseconds: number) {
     } while (currentDate - date < milliseconds);
 }
 
-
 export default class GameManager {
-    team: Character[];
-    rooms: Room[];
-    currentRoomIndex: number;
+    private _team: Character[];
+    private _rooms: Room[];
+    private _currentRoomIndex: number;
 
     constructor(team: Character[], rooms: Room[]) {
-        this.team = team;
-        this.rooms = rooms;
-        this.currentRoomIndex = 0;
+        this._team = team;
+        this._rooms = rooms;
+        this._currentRoomIndex = 0;
     }
 
-    startGame() {
+    get team(): Character[] {
+        return this._team;
+    }
+
+    set team(team: Character[]) {
+        this._team = team;
+    }
+
+    get rooms(): Room[] {
+        return this._rooms;
+    }
+
+    set rooms(rooms: Room[]) {
+        this._rooms = rooms;
+    }
+
+    get currentRoomIndex(): number {
+        return this._currentRoomIndex;
+    }
+
+    set currentRoomIndex(currentRoomIndex: number) {
+        this._currentRoomIndex = currentRoomIndex;
+    }
+
+    public startGame() {
         console.log("STARTING THE GAME---------------");
         pause(2000);
-        console.clear()
+        console.clear();
         while (this.currentRoomIndex < this.rooms.length && this.teamIsAlive()) {
             const currentRoom = this.rooms[this.currentRoomIndex];
             console.log(`----------------------------------------------------------------------------------\\\\\\-ROOM ${this.currentRoomIndex + 1}-///---------------------------------------------------------------------------------\n`);
-            pause(2000)
+            pause(2000);
             currentRoom.enterRoom(this.team);
             if (this.teamIsAlive()) {
                 console.log("Room cleared!");
@@ -42,7 +65,7 @@ export default class GameManager {
         }
     }
 
-    teamIsAlive(): boolean {
+    private teamIsAlive(): boolean {
         return this.team.length !== 0;
     }
 }

@@ -1,26 +1,33 @@
 import Character from "../characters/Character.ts";
 
 export default class Menu {
-    characters: Character[];
+    private _characters: Character[];
 
     constructor(characters: Character[]) {
-        this.characters = characters;
+        this._characters = characters;
     }
 
-    showActions(): void {
+    get characters(): Character[] {
+        return this._characters;
+    }
+
+    set characters(characters: Character[]) {
+        this._characters = characters;
+    }
+
+    public showActions(): void {
         console.log("---ACTIONS---\n");
         console.log("- 1 : ATTACK A MONSTER.");
         console.log("\n- 2 : USE SPECIAL ABILITY");
         console.log("\n- 3 : USE AN ITEM FROM INVENTORY.");
     }
     
-    showActions2(): void {
+    public showActions2(): void {
         console.log("---ACTIONS---\n");
         console.log("- 1 : USE AN ITEM FROM INVENTORY.");
     }
     
-
-    printCharacters() {
+    private printCharacters() {
         console.log(`------------------------------------------------------------------------------\\\\\\-RPG GAME 2024-///------------------------------------------------------------------------------\n`)
         console.log("CHARACTERS \n");
         for (let i = 0; i < this.characters.length; i++) {
@@ -28,7 +35,7 @@ export default class Menu {
         }
     }
 
-    chooseCharacters(): Character[] {
+    public chooseCharacters(): Character[] {
         let selectedCharacters: Character[] = [];
         while (selectedCharacters.length < 3) {
             this.printCharacters();
