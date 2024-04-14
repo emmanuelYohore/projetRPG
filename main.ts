@@ -10,7 +10,7 @@ import Room from "./game/Room.ts";
 import Monstre from "./characters/Monstre.ts"
 import Boss from "./characters/Boss.ts"
 
-//initialisation des personnages
+//initialisation of characters
 const guerrier = new Guerrier("Guerrier");
 const mage = new Mage("Mage");
 const paladin = new Paladin("Paladin");
@@ -18,14 +18,14 @@ const barbare = new Barbare("Barbare");
 const pretre = new Pretre("Prêtre");
 const voleur = new Voleur("Voleur");
 
-//initialisation des salles
+//initialisation of rooms
 const room1 = new Room([new Monstre("Goblin"), new Monstre("Orc"), new Monstre("Loup")], []);
 const room2 = new Room([], ["Potion","StarPiece","DANGER !!! SNAKES"]);
 const room3 = new Room([new Monstre("Thanathos"), new Monstre("Hypnos"), new Monstre("Pandore")], []);
 const room4 = new Room([], ["Ether", "Potion", "DANGER !!! SNAKES"]);
 const room5 = new Room([new Boss("HADES")], []);
 
-//lancement de la partie
+//start of the game
 console.clear()
 const menu = new Menu([guerrier, mage, paladin, barbare, pretre, voleur]);
 const selectedTeam = menu.chooseCharacters();
