@@ -95,6 +95,7 @@ export default class Character {
         this._mana = mana;
     }
 
+    //method to manage HP lose
     public loseHP(degats: number): void {
         this._currentHP -= degats;
         if (this._currentHP < 0) {
@@ -102,6 +103,7 @@ export default class Character {
         }
     }
 
+    //method to manage HP gain
     public gainHP(restitution: number): void {
         this._currentHP += restitution;
         if (this._currentHP > this._maxHP) {

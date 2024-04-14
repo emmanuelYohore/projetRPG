@@ -13,6 +13,8 @@ export default class Inventory {
         this._items = items;
     }
 
+/*methods to manipulate items. */
+
     public addItem(item: string): void {
         this._items.push(item);
     }

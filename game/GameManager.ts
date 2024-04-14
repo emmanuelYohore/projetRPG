@@ -44,6 +44,7 @@ export default class GameManager {
         this._currentRoomIndex = currentRoomIndex;
     }
 
+    //method for switching rooms after the end of the last room until the final room
     public startGame() {
         console.log("STARTING THE GAME---------------");
         pause(2000);

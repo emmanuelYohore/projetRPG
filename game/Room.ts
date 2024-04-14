@@ -49,6 +49,7 @@ export default class Room {
         this._fight = fight;
     }
 
+    //room management method.
     public enterRoom(team: Character[]): void {
         let damage = 0;
         if (this.monsters.length === 0) {

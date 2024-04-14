@@ -15,6 +15,7 @@ export default class Menu {
         this._characters = characters;
     }
 
+    //actions for a healthy character
     public showActions(): void {
         console.log("---ACTIONS---\n");
         console.log("- 1 : ATTACK A MONSTER.");
@@ -22,6 +23,7 @@ export default class Menu {
         console.log("\n- 3 : USE AN ITEM FROM INVENTORY.");
     }
     
+    //actions for a dead character.
     public showActions2(): void {
         console.log("---ACTIONS---\n");
         console.log("- 1 : USE AN ITEM FROM INVENTORY.");
@@ -31,15 +33,16 @@ export default class Menu {
         console.log(`------------------------------------------------------------------------------\\\\\\-RPG GAME 2024-///------------------------------------------------------------------------------\n`)
         console.log("CHARACTERS \n");
         for (let i = 0; i < this.characters.length; i++) {
-            console.log(`${i + 1}. ${this.characters[i].name}`);
+            console.log(`\n${i + 1}. ${this.characters[i].name}   SPEED : ${this.characters[i].speed}     HP : ${this.characters[i].maxHP}    MANA : ${this.characters[i].mana}`);
         }
     }
 
+    //method to choose the characters at the start of the game.
     public chooseCharacters(): Character[] {
         let selectedCharacters: Character[] = [];
         while (selectedCharacters.length < 3) {
             this.printCharacters();
-            const choice = parseInt(prompt("\nTYPE THE NUMBER OF YOUR CHOICE: ") || "0" );
+            const choice = parseInt(prompt("\nTYPE THE NUMBER OF YOUR CHARACTER OF CHOICE: ") || "0" );
             if (isNaN(choice) || choice < 1 || choice > this.characters.length) {
                 console.clear()
                 console.log("NOT VALIDE NUMBER. \n");
@@ -47,7 +50,7 @@ export default class Menu {
                 const selectedCharacter = this.characters[choice - 1];
                 console.clear()
                 console.log(`YOU CHOOSE ${selectedCharacter.name}. ARE YOU SURE ? \n`);
-                const confirmation = prompt("1- HELL YEA !      2- NOPE !");
+                const confirmation = prompt("1- YEA !      2- NOPE !");
                 if (confirmation === '1') {
                     selectedCharacters.push(selectedCharacter);
                     console.clear()

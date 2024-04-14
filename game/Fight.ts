@@ -54,12 +54,14 @@ export default class Fight {
         this._menu = menu;
     }
 
+    //sort characters by speed
     private calculateTurnOrder(): Character[] {
         const allCharacters = this.team.concat(this.monsters);
         allCharacters.sort((a, b) => b.speed - a.speed);
         return allCharacters;
     }
 
+    //determine the turn of each player based on the speed and start the fight
     public startFight(): void {
         console.log("A FIGHT BEGINS !");
         console.clear()
@@ -103,6 +105,7 @@ export default class Fight {
         console.log("THE FIGHT IS OVER.");
     }
 
+    //manage your team turn
     private playerTurn(player: Character): void {
         if(player.currentHP > 0 ){
             console.clear()
@@ -170,6 +173,7 @@ export default class Fight {
         }   
     }
 
+    //manage monsters turn
     private monstersTurn(monster: Character): void {
         console.log('\x1b[31m%s\x1b[0m',`TURN OF ----> ${monster.name.toUpperCase()}(${monster.currentHP}HP)\n`);
         if (monster instanceof Monstre){
@@ -198,6 +202,7 @@ export default class Fight {
         }    
     }
 
+    //method for simple attack
     private attack(attacker: Character): void {
         console.log(`SELECT TARGET FOR ${attacker.name.toUpperCase()}: \n`);
         this.monsters.forEach((monster, index) => {
@@ -223,6 +228,7 @@ export default class Fight {
         console.clear()
     }
 
+    //method to manage items use
     private useItem(user: Character): void {
         console.log("INVENTORY: ");
         user.inventory.showItems();
@@ -314,6 +320,7 @@ export default class Fight {
         }
     }
 
+    //method for rooms without monsters
     public treatmentAfterRoom(damage : number, item : string): void {
         if(item === "DANGER !!! SNAKES"){
             this.team.forEach(member => {
