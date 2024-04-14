@@ -82,6 +82,7 @@ export default class Room {
                     }
                 } else {
                     console.log("KEEP IT SAFE....RUN AWAY !!!")
+                    itemFound = "key"
                     pause(3000);
                     console.clear();
                 }

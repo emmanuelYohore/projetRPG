@@ -50,7 +50,7 @@ export default class GameManager {
         pause(2000);
         console.clear();
         while (this.currentRoomIndex < this.rooms.length && this.teamIsAlive()) {
-            const currentRoom = this.rooms[this.currentRoomIndex];
+        const currentRoom = this.rooms[/*this.currentRoomIndex*/1];
             console.log(`----------------------------------------------------------------------------------\\\\\\-ROOM ${this.currentRoomIndex + 1}-///---------------------------------------------------------------------------------\n`);
             pause(2000);
             currentRoom.enterRoom(this.team);
