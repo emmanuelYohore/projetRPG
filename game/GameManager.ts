@@ -1,4 +1,4 @@
-import Character from "./classes/Character.ts";
+import Character from "../characters/Character.ts";
 import Room from "./Room.ts";
 
 export function pause(milliseconds: number) {
@@ -9,7 +9,8 @@ export function pause(milliseconds: number) {
     } while (currentDate - date < milliseconds);
 }
 
-class GameManager {
+
+export default class GameManager {
     team: Character[];
     rooms: Room[];
     currentRoomIndex: number;
@@ -25,7 +26,7 @@ class GameManager {
         pause(2000);
         console.clear()
         while (this.currentRoomIndex < this.rooms.length && this.teamIsAlive()) {
-            const currentRoom = this.rooms[/*this.currentRoomIndex*/4];
+            const currentRoom = this.rooms[this.currentRoomIndex];
             console.log(`----------------------------------------------------------------------------------\\\\\\-ROOM ${this.currentRoomIndex + 1}-///---------------------------------------------------------------------------------\n`);
             pause(2000)
             currentRoom.enterRoom(this.team);
@@ -45,6 +46,3 @@ class GameManager {
         return this.team.length !== 0;
     }
 }
-
-
-export default GameManager;

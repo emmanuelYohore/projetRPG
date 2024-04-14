@@ -1,14 +1,14 @@
-import GameManager from "./GameManager.ts";
-import Menu from "./Menu.ts";
-import Guerrier from "./classes/Guerrier.ts";
-import Mage from "./classes/Mage.ts";
-import Paladin from "./classes/Paladin.ts";
-import Barbare from "./classes/Barbare.ts";
-import Pretre from "./classes/Pretre.ts";
-import Voleur from "./classes/Voleur.ts";
-import Room from "./Room.ts";
-import Monstre from "./classes/Monstre.ts"
-import Boss from "./classes/Boss.ts"
+import GameManager from "./game/GameManager.ts";
+import Menu from "./game/Menu.ts";
+import Guerrier from "./characters/Guerrier.ts";
+import Mage from "./characters/Mage.ts";
+import Paladin from "./characters/Paladin.ts";
+import Barbare from "./characters/Barbare.ts";
+import Pretre from "./characters/Pretre.ts";
+import Voleur from "./characters/Voleur.ts";
+import Room from "./game/Room.ts";
+import Monstre from "./characters/Monstre.ts"
+import Boss from "./characters/Boss.ts"
 
 //initialisation des personnages
 const guerrier = new Guerrier("Guerrier");

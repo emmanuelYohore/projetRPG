@@ -1,6 +1,6 @@
-import Character from "./classes/Character.ts";
+import Character from "../characters/Character.ts";
 
-class Menu {
+export default class Menu {
     characters: Character[];
 
     constructor(characters: Character[]) {
@@ -9,21 +9,22 @@ class Menu {
 
     showActions(): void {
         console.log("---ACTIONS---\n");
-        console.log("- 1 : Attack a monster.");
-        console.log("- 2 : Use special abitlity");
-        console.log("- 3 : Use an item from inventory.");
+        console.log("- 1 : ATTACK A MONSTER.");
+        console.log("\n- 2 : USE SPECIAL ABILITY");
+        console.log("\n- 3 : USE AN ITEM FROM INVENTORY.");
     }
-
+    
     showActions2(): void {
         console.log("---ACTIONS---\n");
-        console.log("- 1 : Use an item from inventory.");
+        console.log("- 1 : USE AN ITEM FROM INVENTORY.");
     }
+    
 
     printCharacters() {
         console.log(`------------------------------------------------------------------------------\\\\\\-RPG GAME 2024-///------------------------------------------------------------------------------\n`)
         console.log("CHARACTERS \n");
         for (let i = 0; i < this.characters.length; i++) {
-            console.log(`${i + 1}. ${this.characters[i].nom}`);
+            console.log(`${i + 1}. ${this.characters[i].name}`);
         }
     }
 
@@ -38,16 +39,16 @@ class Menu {
             } else {
                 const selectedCharacter = this.characters[choice - 1];
                 console.clear()
-                console.log(`YOU CHOOSE ${selectedCharacter.nom}. ARE YOU SURE ? \n`);
+                console.log(`YOU CHOOSE ${selectedCharacter.name}. ARE YOU SURE ? \n`);
                 const confirmation = prompt("1- HELL YEA !      2- NOPE !");
                 if (confirmation === '1') {
                     selectedCharacters.push(selectedCharacter);
                     console.clear()
-                    console.log(`${selectedCharacter.nom.toUpperCase()} IS SELECTED ! \n`);
+                    console.log(`${selectedCharacter.name.toUpperCase()} IS SELECTED ! \n`);
                     this.characters = this.characters.filter(item => item !== selectedCharacter);
                 } else if (confirmation === '2') {
                     console.clear()
-                    console.log(`YOU REJECTED ${selectedCharacter.nom}.`);
+                    console.log(`YOU REJECTED ${selectedCharacter.name}.`);
                 } else {
                     console.clear()
                     console.log("WRONG ANSWER ! ITS 1 FOR \"YES\" AND 2 FOR \"NO\".");
@@ -57,7 +58,7 @@ class Menu {
                 console.clear()
                 console.log(`-----\\\\YOUR TEAM//-----\n`)
                 for (let i = 0; i < selectedCharacters.length; i++) {
-                    console.log(`${i + 1}. ${selectedCharacters[i].nom.toUpperCase()}`);
+                    console.log(`${i + 1}. ${selectedCharacters[i].name.toUpperCase()}`);
                 }
                 console.log(`\nARE YOU SURE ?`);
                 const confirmation2 = prompt("1- YEA !      2- NOPE !");
@@ -71,4 +72,3 @@ class Menu {
         return selectedCharacters;
     }
 }
-export default Menu;

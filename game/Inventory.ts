@@ -1,5 +1,5 @@
-class Inventory {
-    items: string[] =["Potion", "Elixir", "Ether", "Star"];
+export default class Inventory {
+    items: string[];
 
     constructor() {
         this.items = ["Potion", "StarPiece", "MidStar", "Ether"];
@@ -20,5 +20,3 @@ class Inventory {
         this.items.forEach(item => console.log("- " + item));
     }
 }
-
-export default Inventory;
