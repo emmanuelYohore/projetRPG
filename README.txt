@@ -1,3 +1,6 @@
+***You need to clone the project locally (git clone and the link provided by Github).***
+
+
 ---At first, you need to launch the program using the command: deno run main.ts.
    be sure to be in the projectRPG folder.
    Then, follow the instructions displayed on the screen to play the game.
