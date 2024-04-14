@@ -38,7 +38,7 @@ export default class Character {
 
     gainHP(restitution: number): void {
         this.currentHP += restitution;
-        if (this.currentHP > this.currentHP) {
+        if (this.currentHP > this.maxHP) {
             this.currentHP = this.maxHP;
         }
     }

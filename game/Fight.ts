@@ -89,20 +89,25 @@ export default class Fight {
                         if (player instanceof Barbare) {
                             player.specialAttack(this.monsters); 
                             player.mana -= 30;
+                            console.clear()
                         } else if (player instanceof Mage){
                             player.specialAttack(this.monsters);
                             player.mana -= 30;
+                            console.clear()
                         }  else if(player instanceof Pretre) {
                             player.specialAttack(this.team)
                             player.mana -= 30
+                            console.clear()
                         } else if (player instanceof Voleur){
                             const targetIndex = Math.floor(Math.random() * this.monsters.length);
                             const target = this.monsters[targetIndex];
                             player.steal(target);
                             player.mana -= 30;
+                            console.clear()
                         } else if (player instanceof Paladin) {
                             player.specialAttack(this.monsters); 
                             player.mana -= 30;
+                            console.clear()
                         } else {
                             console.log(`NO SPECIAL ABILITY FOR ${player.name.toUpperCase()}. TURN SKIPPED !`);
                             pause(5000);
