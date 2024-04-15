@@ -290,9 +290,11 @@ export default class Fight {
         if(user.currentHP <= 0 ){
             console.log(`//////////${user.name} USES MIDSTAR TO RESURECT WITH HIS FULL HP !`);
             user.gainHP(restoreAmount2)
+            pause(2000);
         } else {
             user.gainHP(healAmount3)
             console.log(`//////////${user.name.toUpperCase()} USES STARPIECE AND RECOVER HIS FULL HP !`)
+            pause(2000);
         }
     }
 
